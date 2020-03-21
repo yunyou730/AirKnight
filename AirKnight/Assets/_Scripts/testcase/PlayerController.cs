@@ -11,14 +11,17 @@ public class PlayerController : MonoBehaviour
 
 
     Rigidbody2D rigidBody = null;
-    //bool bJumpButtonDown = false;
+    public Collider2D mainCollider = null;
+
+    public bool bLand = false;
 
 
-    bool bLand = false;
+    public Vector3[] footOffsets = null;
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+
     }
 
     void Start()
@@ -28,18 +31,42 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        UpdateStateFlags();
+        
         CollectInput();
     }
 
     private void FixedUpdate()
     {
+        FootLandDetect();
         HandleInput(Time.fixedDeltaTime);
     }
 
-    private void UpdateStateFlags()
+    
+    private void FootLandDetect()
     {
+        bLand = false;
+        for (int i = 0; i < footOffsets.Length; i++)
+        {
+            Vector2 from = new Vector2();
+            from.x = transform.position.x + footOffsets[i].x;
+            from.y = transform.position.y + footOffsets[i].y;
+            float checkLength = 0.25f;
+            string[] checkLayers = { "AK_ground" };
+            RaycastHit2D hit = Physics2D.Raycast(from, new Vector2(0, -1), checkLength, LayerMask.GetMask(checkLayers));
 
+            Color col = new Color(0,0,0);
+            if (hit.collider != null)
+            {
+                bLand = true;
+                col.r = 1;
+            }
+            else
+            {
+                col.g = 1;
+            }
+            Debug.DrawRay(transform.position + footOffsets[i], new Vector3(0, -checkLength, 0), col);
+
+        }
     }
 
 
