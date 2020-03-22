@@ -4,24 +4,56 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    [Header("speed factor")]
     public float moveSpeed = 7.0f;
-    public float jumpForce = 2.0f;
+    public float jumpSpeed = 3.0f;
+    public float jumpForce = 5.0f;
+
     Vector2 inputDir = new Vector2();
 
 
     Rigidbody2D rigidBody = null;
     public Collider2D mainCollider = null;
 
-    public bool bLand = false;
+
+    public enum CtrlType
+    {
+        PressJump,
+        HoldJump,
+        ReleaseJump,
+
+        Max,
+    }
+
+    
+    [Header("input flag")]
+    public bool isJumpPress = false;
+    public bool isJumpHold = false;
+    public bool isJumpRelease = false;
 
 
+    [Header("state flag")]
+    public bool isJumpUp = false;
+    public bool isOnGround = false;
+
+    [Header("jump factor")]
+    public float jumpHoldDuration = 1.0f;
+
+
+    [Header("Environment")]
+    public LayerMask groundLayer;
     public Vector3[] footOffsets = null;
+
+
+    float jumpTime = 0;
+
+
+    
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-
+        mainCollider = GetComponent<Collider2D>();
     }
 
     void Start()
@@ -31,20 +63,29 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        
         CollectInput();
     }
 
     private void FixedUpdate()
     {
-        FootLandDetect();
-        HandleInput(Time.fixedDeltaTime);
+        PhysicCheck();
+        HorizonMovement();
+        JumpMovement();
     }
 
-    
-    private void FootLandDetect()
+
+    private void CollectInput()
     {
-        bLand = false;
+        inputDir.x = Input.GetAxisRaw("Horizontal");
+
+        isJumpPress = Input.GetButtonDown("Jump");
+        isJumpHold = Input.GetButton("Jump");
+        isJumpRelease = Input.GetButtonUp("Jump");
+    }
+
+    private void PhysicCheck()
+    {
+        isOnGround = false;
         for (int i = 0; i < footOffsets.Length; i++)
         {
             Vector2 from = new Vector2();
@@ -54,10 +95,10 @@ public class PlayerController : MonoBehaviour
             string[] checkLayers = { "AK_ground" };
             RaycastHit2D hit = Physics2D.Raycast(from, new Vector2(0, -1), checkLength, LayerMask.GetMask(checkLayers));
 
-            Color col = new Color(0,0,0);
+            Color col = new Color(0, 0, 0);
             if (hit.collider != null)
             {
-                bLand = true;
+                isOnGround = true;
                 col.r = 1;
             }
             else
@@ -69,23 +110,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    private void CollectInput()
+    void HorizonMovement()
     {
-        inputDir.x = Input.GetAxisRaw("Horizontal");
-        inputDir.Normalize();
-        //bJumpButtonDown = Input.GetButtonDown("Jump");
+        float xSpeed = inputDir.x * moveSpeed;
+        rigidBody.velocity = new Vector2(xSpeed,rigidBody.velocity.y);
     }
 
-    private void HandleInput(float dt)
+    void JumpMovement()
     {
-        // horizon move
-        float offset = moveSpeed * dt * inputDir.x;
-        transform.position = transform.position + new Vector3(offset, 0, 0);
-        // jump
-        if(bLand && Input.GetButtonDown("Jump"))
+        if (!isJumpUp)
         {
-            rigidBody.AddForce(new Vector2(0, jumpForce));
+            if (isOnGround && (isJumpPress || isJumpHold))
+            {
+                isJumpUp = true;
+                jumpTime = Time.time + jumpHoldDuration;
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
+            }
+        }
+        else
+        {
+            if (isJumpHold && Time.time <= jumpTime)
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
+            }
+            else
+            {
+                isJumpUp = false;
+            }
         }
     }
 }
