@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     float jumpTime = 0;
 
 
-    
+    //Animator animator = null;
 
     private void Awake()
     {
