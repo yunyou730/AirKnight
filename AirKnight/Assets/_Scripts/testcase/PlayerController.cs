@@ -124,14 +124,16 @@ public class PlayerController : MonoBehaviour
             {
                 isJumpUp = true;
                 jumpTime = Time.time + jumpHoldDuration;
-                rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
+                //rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
+                rigidBody.AddForce(new Vector2(0,jumpForce), ForceMode2D.Impulse);
             }
         }
         else
         {
             if (isJumpHold && Time.time <= jumpTime)
             {
-                rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
+                //rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
+                rigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
             else
             {
