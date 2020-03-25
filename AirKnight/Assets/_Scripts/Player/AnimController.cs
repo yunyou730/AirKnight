@@ -21,12 +21,11 @@ namespace ak
 
         private void Update()
         {
-            RefreshAnim();
-            RefreshFace();
+            UpdateAnim();
         }
 
 
-        private void RefreshAnim()
+        private void UpdateAnim()
         {
             if (controller.isOnGround)
             {
@@ -45,7 +44,7 @@ namespace ak
                 animator.Play("jump");
             }
         }
-
+        /*
         private void RefreshFace()
         {
             if (rigidBody.velocity.x < -0.1f)
@@ -57,6 +56,7 @@ namespace ak
                 transform.localScale = new Vector3(1, 1, 1);
             }
         }
+        */
     }
 
 }

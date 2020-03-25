@@ -52,6 +52,14 @@ namespace ak
 
         //Animator animator = null;
 
+        
+        public enum Facing
+        {
+            Right,
+            Left,
+        }
+        public Facing facing = Facing.Right;
+
         private void Awake()
         {
             rigidBody = GetComponent<Rigidbody2D>();
@@ -116,13 +124,15 @@ namespace ak
         {
             float xSpeed = inputDir.x * moveSpeed;
             rigidBody.velocity = new Vector2(xSpeed, rigidBody.velocity.y);
+            UpdateFacing(inputDir.x);
         }
 
         void JumpMovement()
         {
             if (!isJumpUp)
             {
-                if (isOnGround && (isJumpPress || isJumpHold))
+                //if (isOnGround && (isJumpPress || isJumpHold))
+                if (isOnGround && (isJumpPress))
                 {
                     isJumpUp = true;
                     jumpTime = Time.time + jumpHoldDuration;
@@ -141,6 +151,21 @@ namespace ak
                 {
                     isJumpUp = false;
                 }
+            }
+        }
+
+
+        void UpdateFacing(float inputX)
+        {
+            if (inputX > 0 && facing == Facing.Left)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+                facing = Facing.Right;
+            }
+            else if (inputX < 0 && facing == Facing.Right)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+                facing = Facing.Left;
             }
         }
     }

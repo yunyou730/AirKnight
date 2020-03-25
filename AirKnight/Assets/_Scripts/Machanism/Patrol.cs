@@ -9,57 +9,102 @@ namespace ak
         public Transform[] points = null;
         private int curPointIndex = 0;
 
+
+        private Vector3[] dests = null;
+
+
+        MoveTo moveTo = null;
+
         void Start()
         {
+            dests = new Vector3[points.Length];
+            for (int i = 0; i < points.Length; i++)
+            {
+                dests[i] = points[i].position;
+                Destroy(points[i].gameObject);
+            }
+            points = null;
+
+
             SetPositionTo(0);
-            SetCurrentPointIndex(curPointIndex);
+            SetCurrentPointIndex(0);
+            ApproachNext();
         }
 
+        
         void Update()
         {
+            float dt = Time.deltaTime;
+            if (moveTo != null)
+            {
+                moveTo.Update(dt);
+                Vector2 pos = moveTo.GetCur();
+                transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+            }
+        }
 
+        private void FixedUpdate()
+        {
+            /*
+             * float dt = Time.fixedDeltaTime;
+            if (moveTo != null)
+            {
+                moveTo.Update(dt);
+                Vector2 pos = moveTo.GetCur();
+                transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+            }
+            */
         }
 
         private void SetPositionTo(int pointIndex)
         {
-            if (pointIndex < 0 || pointIndex >= points.Length)
+            if (pointIndex < 0 || pointIndex >= dests.Length)
             {
                 return;
             }
-            Transform point = points[pointIndex];
-            // @miao @todo
+            transform.position = dests[pointIndex];
         }
 
         private void ApproachTo(int pointIndex)
         {
-            if (pointIndex < 0 || pointIndex >= points.Length)
+            if (pointIndex < 0 || pointIndex >= dests.Length)
             {
                 return;
             }
-            Transform point = points[pointIndex];
-            // @miao @todo
+            Vector3 dest = dests[pointIndex];
+            moveTo = new MoveTo();
+            moveTo.Prepare(transform.position, dest, 3);
+            moveTo.Run(()=> {
+                ApproachNext();
+            });
         }
-
-
-        private int GetPrevPointIndex(int pointIndex)
+        
+        private void NextPointIndex()
         {
-            int prev = pointIndex - 1;
-            prev = prev < 0 ? points.Length - 1 : prev;
-            return prev;
-        }
-
-
-        private int GetNextPointIndex(int pointIndex)
-        {
-            int next = pointIndex + 1;
-            next = next == points.Length ? 0 : next;
-            return next;
+            int next = curPointIndex + 1;
+            next = next == dests.Length ? 0 : next;
+            curPointIndex = next;
         }
 
         private void SetCurrentPointIndex(int pointIndex)
         {
             curPointIndex = pointIndex;
         }
+
+        private void ApproachNext()
+        {
+
+            StartCoroutine(DoApproachStart());
+        }
+
+        private IEnumerator DoApproachStart()
+        {
+            //yield return new Waitf(0.5f);
+            yield return 0;
+            NextPointIndex();
+            ApproachTo(curPointIndex);
+        }
+        
     }
 
 }
