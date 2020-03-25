@@ -9,7 +9,7 @@ namespace ak
         float duration = 0;
 
         float elapsedTime = 0;
-        bool isStarted = 0;
+        bool isStarted = false;
 
         public delegate void FinishDelegate();
         FinishDelegate callback = null;
