@@ -34,26 +34,24 @@ namespace ak
         
         void Update()
         {
-            float dt = Time.deltaTime;
-            if (moveTo != null)
-            {
-                moveTo.Update(dt);
-                Vector2 pos = moveTo.GetCur();
-                transform.position = new Vector3(pos.x, pos.y, transform.position.z);
-            }
+            //float dt = Time.deltaTime;
+            //if (moveTo != null)
+            //{
+            //    moveTo.Update(dt);
+            //    Vector2 pos = moveTo.GetCur();
+            //    transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+            //}
         }
 
         private void FixedUpdate()
         {
-            /*
-             * float dt = Time.fixedDeltaTime;
+            float dt = Time.fixedDeltaTime;
             if (moveTo != null)
             {
                 moveTo.Update(dt);
                 Vector2 pos = moveTo.GetCur();
                 transform.position = new Vector3(pos.x, pos.y, transform.position.z);
             }
-            */
         }
 
         private void SetPositionTo(int pointIndex)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ak
 {
+    [RequireComponent(typeof(SpriteRenderer),typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour
     {
         [Header("speed factor")]
@@ -43,14 +44,16 @@ namespace ak
 
 
         [Header("Environment")]
-        public LayerMask groundLayer;
+        //public LayerMask[] groundLayers;
         public Vector3[] footOffsets = null;
-
+            
 
         float jumpTime = 0;
 
 
         //Animator animator = null;
+
+        SpriteRenderer spriteRenderer = null;
 
         
         public enum Facing
@@ -64,6 +67,7 @@ namespace ak
         {
             rigidBody = GetComponent<Rigidbody2D>();
             mainCollider = GetComponent<Collider2D>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         void Start()
@@ -159,12 +163,14 @@ namespace ak
         {
             if (inputX > 0 && facing == Facing.Left)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                spriteRenderer.flipX = false;
+                //transform.localScale = new Vector3(1, 1, 1);
                 facing = Facing.Right;
             }
             else if (inputX < 0 && facing == Facing.Right)
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                //transform.localScale = new Vector3(-1, 1, 1);
+                spriteRenderer.flipX = true;
                 facing = Facing.Left;
             }
         }
