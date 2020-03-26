@@ -12,7 +12,7 @@ namespace ak
         public float jumpSpeed = 3.0f;
         public float jumpForce = 5.0f;
 
-        Vector2 inputDir = new Vector2();
+        public Vector2 inputDir = new Vector2();
 
 
         Rigidbody2D rigidBody = null;

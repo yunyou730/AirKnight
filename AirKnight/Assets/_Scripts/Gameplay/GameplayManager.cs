@@ -17,8 +17,7 @@ namespace ak
         {
 
         }
-
-
+        
         void SpawnPlayer()
         {
 
