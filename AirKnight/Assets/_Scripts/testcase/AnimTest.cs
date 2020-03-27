@@ -11,4 +11,13 @@ public class AnimTest : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.Play(gameObject.name);
     }
+
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            animator.Play("attack");
+        }
+    }
 }

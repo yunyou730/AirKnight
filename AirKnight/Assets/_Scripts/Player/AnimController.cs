@@ -4,12 +4,14 @@ using UnityEngine;
 
 namespace ak
 {
-
     public class AnimController : MonoBehaviour
     {
         Animator animator = null;
         PlayerController controller = null;
         Rigidbody2D rigidBody = null;
+
+
+        public bool isGroundAttacking = false;
 
         private void Awake()
         {
@@ -23,23 +25,58 @@ namespace ak
             UpdateAnim();
         }
 
+        /*
+        private void FixedUpdate()
+        {
+            UpdateAnim();
+        }
+        */
+
         private void UpdateAnim()
         {
             if (controller.isOnGround)
             {
-                if (controller.inputDir.magnitude == 0)
+                if (controller.btnFire1.isPress)
                 {
-                    animator.Play("idle");
+                    isGroundAttacking = true;
+                    animator.Play("attack");
                 }
-                else
+
+
+                if (!isGroundAttacking)
                 {
-                    animator.Play("walk");
+                    if (controller.inputDir.magnitude == 0)
+                    {
+                        animator.Play("idle");
+                    }
+                    else
+                    {
+                        animator.Play("walk");
+                    }
                 }
+
             }
             else
             {
                 animator.Play("jump");
             }
+        }
+
+        private void GroundAttack()
+        {
+
+        }
+
+        private void AirAttack()
+        {
+
+        }
+
+
+        public void OnAttackEnd()
+        {
+            Debug.Log("OnAttackEnd()");
+            isGroundAttacking = false;
         }
     }
 

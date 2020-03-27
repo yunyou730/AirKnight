@@ -28,11 +28,11 @@ namespace ak
             Max,
         }
 
-
         [Header("input flag")]
-        public bool isJumpPress = false;
-        public bool isJumpHold = false;
-        public bool isJumpRelease = false;
+        [SerializeField]
+        public InputButton btnJump = new InputButton("Jump");
+        [SerializeField]
+        public InputButton btnFire1 = new InputButton("Fire1");
 
 
         [Header("state flag")]
@@ -50,11 +50,9 @@ namespace ak
 
         float jumpTime = 0;
 
-
-        //Animator animator = null;
-
         SpriteRenderer spriteRenderer = null;
 
+        
         
         public enum Facing
         {
@@ -77,11 +75,13 @@ namespace ak
 
         void Update()
         {
-            CollectInput();
+            //CollectInput();
         }
 
         private void FixedUpdate()
         {
+            CollectInput();
+
             PhysicCheck();
             HorizonMovement();
             JumpMovement();
@@ -91,10 +91,8 @@ namespace ak
         private void CollectInput()
         {
             inputDir.x = Input.GetAxisRaw("Horizontal");
-
-            isJumpPress = Input.GetButtonDown("Jump");
-            isJumpHold = Input.GetButton("Jump");
-            isJumpRelease = Input.GetButtonUp("Jump");
+            btnJump.Collect();
+            btnFire1.Collect();
         }
 
         private void PhysicCheck()
@@ -135,9 +133,9 @@ namespace ak
         {
             if (!isJumpUp)
             {
-                //if (isOnGround && (isJumpPress || isJumpHold))
-                if (isOnGround && (isJumpPress))
+                if (isOnGround && btnJump.isPress)
                 {
+                    //Debug.Log("jump press start jump");
                     isJumpUp = true;
                     jumpTime = Time.time + jumpHoldDuration;
                     //rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
@@ -146,7 +144,7 @@ namespace ak
             }
             else
             {
-                if (isJumpHold && Time.time <= jumpTime)
+                if (btnJump.isHold && Time.time <= jumpTime)
                 {
                     //rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
                     rigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
