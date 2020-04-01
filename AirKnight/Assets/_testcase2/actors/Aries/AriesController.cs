@@ -11,11 +11,10 @@ namespace ff
         AriesAnimBridge m_animBridge = null;
 
         public bool isMidAir = false;
-
         
 
-
         private ff.InputAxe m_horizontalAxe = null;
+        private ff.InputButton m_jumpButton = null;
 
         private void Awake()
         {
@@ -23,6 +22,7 @@ namespace ff
             m_animBridge = GetComponent<AriesAnimBridge>();
 
             m_horizontalAxe = new ff.InputAxe("Horizontal");
+            m_jumpButton = new ff.InputButton("Jump");
         }
 
         void Start()
@@ -41,6 +41,8 @@ namespace ff
             m_horizontalAxe.Update(dt);
             m_animator.SetFloat(m_animBridge.horizonAxeHoldTime, m_horizontalAxe.m_holdDuration);
             m_animator.SetBool(m_animBridge.isHorizonAxeHold,m_horizontalAxe.IsHolding());
+
+            m_jumpButton.Update(dt);
         }
     }
 

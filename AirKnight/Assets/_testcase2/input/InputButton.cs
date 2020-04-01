@@ -6,9 +6,9 @@ namespace ff
 {
     public class InputButton
     {
-        public bool isPress = false;
-        public bool isHold = false;
-        public bool isRelease = false;
+        public bool m_isPress = false;
+        public bool m_isHold = false;
+        public bool m_isRelease = false;
 
         string m_buttonKey;
 
@@ -17,11 +17,27 @@ namespace ff
             m_buttonKey = buttonKey;
         }
 
-        public void Update()
+        public void Update(float dt)
         {
-            isPress = Input.GetButtonDown(m_buttonKey);
-            isHold = Input.GetButton(m_buttonKey);
-            isRelease = Input.GetButtonUp(m_buttonKey);
+            // clear & reset value
+            m_isPress = Input.GetButtonDown(m_buttonKey);
+            m_isHold = Input.GetButton(m_buttonKey);
+            m_isRelease = Input.GetButtonUp(m_buttonKey);
+        }
+
+        public bool IsPress()
+        {
+            return m_isPress;
+        }
+
+        public bool IsHold()
+        {
+            return m_isHold;
+        }
+
+        public bool IsRelease()
+        {
+            return m_isRelease;
         }
     }
 
