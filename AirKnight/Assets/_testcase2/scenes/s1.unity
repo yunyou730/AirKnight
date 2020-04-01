@@ -215,8 +215,10 @@ GameObject:
   - component: {fileID: 1295364590}
   - component: {fileID: 1295364589}
   - component: {fileID: 1295364591}
+  - component: {fileID: 1295364593}
+  - component: {fileID: 1295364592}
   m_Layer: 0
-  m_Name: pawn1
+  m_Name: Aries
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,3 +307,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1295364592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295364588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bc399bedf07e467d80016a2c7b0b500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMidAir: 0
+--- !u!114 &1295364593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295364588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f942314395c864ca59b5f39f08c137aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
