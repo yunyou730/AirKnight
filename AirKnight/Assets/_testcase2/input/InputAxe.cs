@@ -16,7 +16,8 @@ namespace ff
         
         public void Update(float dt)
         {
-            m_value = Input.GetAxis(m_axeKey);
+            //m_value = Input.GetAxis(m_axeKey);
+            m_value = Input.GetAxisRaw(m_axeKey);
             if (Mathf.Abs(m_value) > 0)
             {
                 m_holdDuration += dt;

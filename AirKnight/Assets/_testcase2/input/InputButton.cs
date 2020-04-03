@@ -12,6 +12,7 @@ namespace ff
 
         string m_buttonKey;
 
+
         public InputButton(string buttonKey)
         {
             m_buttonKey = buttonKey;

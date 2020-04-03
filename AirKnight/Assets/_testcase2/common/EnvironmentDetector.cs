@@ -32,7 +32,7 @@ namespace ff
             CheckGround();
         }
         
-        void CheckGround()
+        public void CheckGround()
         {
             isOnGround = false;
 

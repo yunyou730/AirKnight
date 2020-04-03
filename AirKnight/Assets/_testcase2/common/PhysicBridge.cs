@@ -10,9 +10,13 @@ namespace ff
         // rigid body
         Rigidbody2D m_rigidBody = null;
 
-        // jump
-        public float m_jumpForceValue = 700;
-        // move
+        [Header("Jump")]
+        //[SerializeField] 
+        //private float m_jumpForceValue = 700;
+        [SerializeField]
+        private float m_continouslyJumpValue = 20;
+
+        [Header("Move")]
         public float m_moveSpeedValue = 2;
 
         private Vector2 m_jumpForce;
@@ -23,25 +27,32 @@ namespace ff
             m_rigidBody = GetComponent<Rigidbody2D>();
         }
 
+        //private void Update()
+        //{
+        //    if (m_rigidBody.velocity.y != 0)
+        //    {
+        //        Debug.Log("m_rigidBody.velocity.y " + m_rigidBody.velocity.y);
+        //    }
+        //}
+
         public float GetVerticalSpeed()
         {
             return m_rigidBody.velocity.y;
         }
 
-        public void PerformJump()
+        public void PerformContinouslyJump()
         {
             m_jumpForce.x = 0;
-            m_jumpForce.y = m_jumpForceValue;
+            m_jumpForce.y = m_continouslyJumpValue;
             m_rigidBody.AddForce(m_jumpForce, ForceMode2D.Force);
         }
-
-        // controlDirectionValue between [-1,1]
+        
         public void PerformHorizonMove(float controlDirectionValue)
         {
+            controlDirectionValue = Mathf.Clamp(controlDirectionValue, -1, 1);
             m_horizonMoveSpeed.x = m_moveSpeedValue * controlDirectionValue;
             m_horizonMoveSpeed.y = m_rigidBody.velocity.y;
             m_rigidBody.velocity = m_horizonMoveSpeed;
         }
     }
-
 }
