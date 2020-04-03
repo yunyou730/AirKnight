@@ -6,10 +6,9 @@ namespace ff
     public class InputAxe
     {
         public float m_holdDuration = 0.0f;
-        public float m_value = 0;
-        public string m_axeKey;
+        private float m_value = 0;
+        private string m_axeKey;
         
-
         public InputAxe(string axeKey)
         {
             m_axeKey = axeKey;
@@ -31,6 +30,11 @@ namespace ff
         public bool IsHolding()
         {
             return Mathf.Abs(m_value) > 0;
+        }
+
+        public float GetValue()
+        {
+            return m_value;
         }
     }
 

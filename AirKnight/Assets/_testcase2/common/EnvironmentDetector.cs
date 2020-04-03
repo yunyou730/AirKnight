@@ -6,7 +6,6 @@ namespace ff
 {
     // 为了调试 动画， 临时增加 环境检测脚本EnvironmentCheck
     // 将来 可能随时替换成其他 物理检测手段
-    [RequireComponent(typeof(Rigidbody2D))]
     public class EnvironmentDetector : MonoBehaviour
     {
         // ground checker
@@ -16,17 +15,7 @@ namespace ff
         public Vector2 groundCheckerBeginOffset;
         private Vector2 groundCheckerFrom;
         private Color groundCheckerLineColor = Color.green;
-
-        // rigid body
-        Rigidbody2D m_rigidBody = null;
-
-        // jump
-        public float m_jumpForce = 10;
-
-        private void Awake()
-        {
-            m_rigidBody = GetComponent<Rigidbody2D>();
-        }
+        
 
         void Start()
         {
@@ -61,15 +50,7 @@ namespace ff
         }
 
 
-        public float GetVerticalSpeed()
-        {
-            return m_rigidBody.velocity.y;
-        }
 
-        public void PerformJump()
-        {
-            m_rigidBody.AddForce(new Vector2(0,m_jumpForce), ForceMode2D.Force);
-        }
         
     }
 }
