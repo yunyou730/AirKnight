@@ -49,10 +49,18 @@ namespace ff
             CollectInput(dt);
             UpdateStateFlag();
 
-            if (Input.GetButtonDown("Jump"))
+            // horizon move
+            m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
+
+            // jump
+            if (m_jumpButton.IsPress() && m_envDetector.isOnGround)
             {
-                Debug.LogError("[jump down] [btn]" + m_jumpButton.IsPress());
-                
+                m_jumpElapsedPeriod = 0;
+                UpdateJump(dt);
+            }
+            if (m_jumpButton.IsHold() && m_jumpElapsedPeriod < m_continouslyJumpMaxPeriod)
+            {
+                UpdateJump(dt);
             }
 
         }
@@ -60,21 +68,6 @@ namespace ff
         private void FixedUpdate()
         {
             float dt = Time.fixedDeltaTime;
-
-            // horizon move
-            m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
-
-            // jump
-            if (m_jumpButton.IsPress() && m_envDetector.isOnGround)
-            {
-                Debug.LogWarning("Start Jump");
-                m_jumpElapsedPeriod = 0;
-                //UpdateJump(dt);
-            }
-            //if (m_jumpButton.IsHold() && m_jumpElapsedPeriod < m_continouslyJumpMaxPeriod)
-            //{
-            //    UpdateJump(dt);
-            //}
         }
 
         private void CollectInput(float dt)
@@ -110,12 +103,7 @@ namespace ff
             m_animator.SetFloat(m_animBridge.airSpeed, m_phyBridge.GetVerticalSpeed());
         }
 
-
-        //private void StartJump()
-        //{
-        //    m_jumpElapsedPeriod = 0.0f;
-        //}
-
+    
         private void UpdateJump(float dt)
         {
             m_jumpElapsedPeriod += dt;

@@ -749,7 +749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc399bedf07e467d80016a2c7b0b500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_continouslyJumpMaxPeriod: 0.15
+  m_continouslyJumpMaxPeriod: 0.2
   m_jumpElapsedPeriod: 0
 --- !u!114 &1295364593
 MonoBehaviour:
@@ -826,7 +826,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  groundCheckerLength: 0.3
+  groundCheckerLength: 0.25
   groundCheckerBeginOffset: {x: 0, y: -0.4}
 --- !u!114 &1295364597
 MonoBehaviour:
@@ -840,5 +840,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef7f9d2c55cb8374895700c0d7c87ae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_continouslyJumpValue: 100
-  m_moveSpeedValue: 2
+  m_continouslyJumpValue: 1
+  m_moveSpeedValue: 3.5

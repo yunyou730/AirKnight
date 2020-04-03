@@ -11,8 +11,6 @@ namespace ff
         Rigidbody2D m_rigidBody = null;
 
         [Header("Jump")]
-        //[SerializeField] 
-        //private float m_jumpForceValue = 700;
         [SerializeField]
         private float m_continouslyJumpValue = 20;
 
@@ -26,15 +24,7 @@ namespace ff
         {
             m_rigidBody = GetComponent<Rigidbody2D>();
         }
-
-        //private void Update()
-        //{
-        //    if (m_rigidBody.velocity.y != 0)
-        //    {
-        //        Debug.Log("m_rigidBody.velocity.y " + m_rigidBody.velocity.y);
-        //    }
-        //}
-
+    
         public float GetVerticalSpeed()
         {
             return m_rigidBody.velocity.y;
@@ -44,7 +34,7 @@ namespace ff
         {
             m_jumpForce.x = 0;
             m_jumpForce.y = m_continouslyJumpValue;
-            m_rigidBody.AddForce(m_jumpForce, ForceMode2D.Force);
+            m_rigidBody.AddForce(m_jumpForce, ForceMode2D.Impulse);
         }
         
         public void PerformHorizonMove(float controlDirectionValue)
