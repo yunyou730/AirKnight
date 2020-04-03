@@ -58,15 +58,14 @@ namespace ff
             m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
 
             // face direction
-            ff.FaceDir nextFaceDir = m_faceDir;
-            if (m_horizontalAxe.GetValue() > 0 && nextFaceDir != FaceDir.RIGHT)
+            if (m_horizontalAxe.GetValue() > 0 && m_faceDir != FaceDir.RIGHT)
             {
-                nextFaceDir = FaceDir.RIGHT;
+                m_faceDir = FaceDir.RIGHT;
                 m_spriteRenderer.flipX = true;
             }
-            else if (m_horizontalAxe.GetValue() < 0 && nextFaceDir != FaceDir.LEFT)
+            else if (m_horizontalAxe.GetValue() < 0 && m_faceDir != FaceDir.LEFT)
             {
-                nextFaceDir = FaceDir.LEFT;
+                m_faceDir = FaceDir.LEFT;
                 m_spriteRenderer.flipX = false;
             }
             
