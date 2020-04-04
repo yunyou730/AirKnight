@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1dbf78087291eb444aacec4f55787508
+guid: 35351f422a6fa443a8d7d078358009ac
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -1570,7 +1570,7 @@ TextureImporter:
     second: atlas0 #050600357_521
   - first:
       213: 21301044
-    second: atlas0 #050600357_522
+    second: atlas0 #050600357_522_LR_atk_eff
   - first:
       213: 21301046
     second: atlas0 #050600357_523
@@ -12656,7 +12656,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: atlas0 #050600357_522
+      name: atlas0 #050600357_522_LR_atk_eff
       rect:
         serializedVersion: 2
         x: 672
@@ -12853,7 +12853,7 @@ TextureImporter:
         width: 198
         height: 94
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -12868,7 +12868,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: eaaabcde3e36f47b28c1db81aacfc28d
     internalID: 0
     vertices: []
     indices: 

@@ -30,10 +30,10 @@ namespace ff
             return m_rigidBody.velocity.y;
         }
 
-        public void PerformContinouslyJump()
+        public void PerformContinouslyJump(float dt)
         {
             m_jumpForce.x = 0;
-            m_jumpForce.y = m_continouslyJumpValue;
+            m_jumpForce.y = m_continouslyJumpValue * dt;
             m_rigidBody.AddForce(m_jumpForce, ForceMode2D.Impulse);
         }
         

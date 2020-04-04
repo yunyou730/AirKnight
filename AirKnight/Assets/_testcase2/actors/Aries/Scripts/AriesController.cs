@@ -52,6 +52,7 @@ namespace ff
             // horizon move
             m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
 
+
             // jump
             if (m_jumpButton.IsPress() && m_envDetector.isOnGround)
             {
@@ -62,7 +63,6 @@ namespace ff
             {
                 UpdateJump(dt);
             }
-
         }
 
         private void FixedUpdate()
@@ -106,8 +106,13 @@ namespace ff
     
         private void UpdateJump(float dt)
         {
+            float calcJumpDeltaTime = dt;
+            if (m_jumpElapsedPeriod + dt >= m_continouslyJumpMaxPeriod)
+            {
+                calcJumpDeltaTime = calcJumpDeltaTime - (m_jumpElapsedPeriod + dt - m_continouslyJumpMaxPeriod);
+            }
             m_jumpElapsedPeriod += dt;
-            m_phyBridge.PerformContinouslyJump();
+            m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime);
         }
 
         private void StopJump()
