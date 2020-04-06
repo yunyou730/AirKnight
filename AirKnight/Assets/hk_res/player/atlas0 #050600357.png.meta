@@ -1573,7 +1573,7 @@ TextureImporter:
     second: atlas0 #050600357_522_LR_atk_eff
   - first:
       213: 21301046
-    second: atlas0 #050600357_523
+    second: atlas0 #050600357_UD_atk_eff
   - first:
       213: 21301048
     second: atlas0 #050600357_524
@@ -1597,7 +1597,7 @@ TextureImporter:
     second: atlas0 #050600357_530
   - first:
       213: 21301062
-    second: atlas0 #050600357_531
+    second: atlas0 #050600357_531_LR_atk_eff_2
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -12677,7 +12677,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: atlas0 #050600357_523
+      name: atlas0 #050600357_UD_atk_eff
       rect:
         serializedVersion: 2
         x: 2480
@@ -12845,7 +12845,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: atlas0 #050600357_531
+      name: atlas0 #050600357_531_LR_atk_eff_2
       rect:
         serializedVersion: 2
         x: 1672

@@ -37,12 +37,13 @@ namespace ff
             m_slashPos = m_controller.transform.position;
             m_slashPos.x += m_offset.x;
             m_slashPos.y += m_offset.y;
-            slash.transform.position = m_controller.GetFront() + m_slashPos;
             if (slash.GetComponent<ff.AriesHorizontalSlash>() != null)
             {
+                m_slashPos += m_controller.GetFront();
                 ff.AriesHorizontalSlash horizonSlash = slash.GetComponent<ff.AriesHorizontalSlash>();
                 horizonSlash.InitWithOwner(m_controller);
             }
+            slash.transform.position = m_slashPos;
             return slash;
         }
     }
