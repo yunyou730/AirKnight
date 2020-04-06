@@ -17,13 +17,18 @@ namespace ff
         private ff.PhysicBridge m_phyBridge = null;
         private SpriteRenderer m_spriteRenderer = null;
 
-        private ff.FaceDir m_faceDir = ff.FaceDir.LEFT;     // depend on origin image 
+        public ff.FaceDir m_faceDir { get; set; } = ff.FaceDir.LEFT;     // depend on origin image 
 
 
         [SerializeField]
         private float m_continouslyJumpMaxPeriod = 0.8f;
         [SerializeField]
         private float m_jumpElapsedPeriod = 0.0f;
+
+
+        // avoid temporary new,declare here
+        private Vector3 m_front;
+        
 
         private void Awake()
         {
@@ -137,11 +142,18 @@ namespace ff
             m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime);
         }
 
-        private void StopJump()
+        public Vector3 GetFront()
         {
-            m_jumpElapsedPeriod = 0.0f;
-            //m_isJumping = false;
+            switch (m_faceDir)
+            {
+                case FaceDir.LEFT:
+                    m_front.x = -1;
+                    break;
+                case FaceDir.RIGHT:
+                    m_front.x = 1;
+                    break;
+            }
+            return m_front;
         }
     }
-
 }

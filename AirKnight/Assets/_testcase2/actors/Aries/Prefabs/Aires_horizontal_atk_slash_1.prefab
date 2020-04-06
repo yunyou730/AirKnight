@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1808418630005847045}
   - component: {fileID: 1808418630005847044}
+  - component: {fileID: 8485402072923567871}
   m_Layer: 0
   m_Name: Aires_LR_atk_effect_1
   m_TagString: Untagged
@@ -67,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1020647359
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21301044, guid: 35351f422a6fa443a8d7d078358009ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -81,3 +82,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8485402072923567871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808418630005847051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bb62e75e80c4e0284c2af1b2cf470d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

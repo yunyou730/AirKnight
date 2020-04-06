@@ -41,3 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: ff_slash
+    uniqueID: 3274319937
+    locked: 0
