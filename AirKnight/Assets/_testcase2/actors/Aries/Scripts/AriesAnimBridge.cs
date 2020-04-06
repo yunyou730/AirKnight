@@ -15,6 +15,7 @@ namespace ff
         public int horizonAxeHoldTime { set; get; }
         public int isHorizonAxeHold { set; get; }
         public int isUpArrowHold { set; get; }
+        public int isDownArrowHold { set; get; }
 
         // layer attack
         public int atkTrigger { set; get; }
@@ -28,6 +29,7 @@ namespace ff
             horizonAxeHoldTime = Animator.StringToHash("horizon_axe_hold_time");
             isHorizonAxeHold = Animator.StringToHash("is_horizon_axe_hold");
             isUpArrowHold = Animator.StringToHash("is_up_arrow_hold");
+            isDownArrowHold = Animator.StringToHash("is_down_arrow_hold");
             atkTrigger = Animator.StringToHash("atk_trigger");
         }
     }

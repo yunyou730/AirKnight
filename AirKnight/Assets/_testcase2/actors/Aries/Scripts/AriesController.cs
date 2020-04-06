@@ -99,6 +99,21 @@ namespace ff
             {
                 m_animator.SetTrigger(m_animBridge.atkTrigger);
             }
+
+            // vertical direction
+            bool bUpHolding = false;
+            bool bDownHolding = false;
+            float verticalAxeValue = Input.GetAxis("Vertical");
+            if (verticalAxeValue > 0)
+            {
+                bUpHolding = true;
+            }
+            else if (verticalAxeValue < 0)
+            {
+                bDownHolding = true;
+            }
+            m_animator.SetBool(m_animBridge.isUpArrowHold,bUpHolding);
+            m_animator.SetBool(m_animBridge.isDownArrowHold,bDownHolding);
         }
 
 
