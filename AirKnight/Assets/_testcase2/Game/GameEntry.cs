@@ -13,11 +13,22 @@ namespace ff
         
         public void Update()
         {
-            float fps = 1.0f / Time.deltaTime;
+            RefreshFPS(Time.deltaTime);
+        }
+
+
+        private void RefreshFPS(float dt)
+        {
+            float fps = 1.0f / dt;
             m_strFPS.Clear();
             m_strFPS.Append("FPS:");
             m_strFPS.Append(fps.ToString());
             m_fpsLabel.text = m_strFPS.ToString();
+        }
+
+        public void SetFPS()
+        {
+            Application.targetFrameRate = 30;
         }
     }
 }
