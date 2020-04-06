@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace ff
 {
-    //[RequireComponent(typeof(AriesAnimBridge),typeof(Animator),typeof(ff.EnvironmentDetector))]
-    //[RequireComponent(typeof(ff.PhysicBridge))]
     public class AriesController : MonoBehaviour
     {
         Animator m_animator = null;
@@ -13,6 +11,7 @@ namespace ff
         
         private ff.InputAxe m_horizontalAxe = null;
         private ff.InputButton m_jumpButton = null;
+        private ff.InputButton m_attackButton = null;
 
         private ff.EnvironmentDetector m_envDetector = null;
         private ff.PhysicBridge m_phyBridge = null;
@@ -36,6 +35,7 @@ namespace ff
 
             m_horizontalAxe = new ff.InputAxe("Horizontal");
             m_jumpButton = new ff.InputButton("Jump");
+            m_attackButton = new ff.InputButton("Fire1");
         }
 
         void Start()
@@ -92,6 +92,13 @@ namespace ff
             
             // jump
             m_jumpButton.Update(dt);
+
+            // attack
+            m_attackButton.Update(dt);
+            if (m_attackButton.IsPress())
+            {
+                m_animator.SetTrigger(m_animBridge.atkTrigger);
+            }
         }
 
 
