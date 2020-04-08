@@ -125,8 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_slashPrefab: {fileID: 9017896563136926800, guid: dda1c13ff7ab3435cb2058b315994b40,
     type: 3}
-  m_offset: {x: 0, y: -0.15}
-  m_rotation: {x: 0, y: 0, z: 0, w: 0}
+  m_offset: {x: 0.5, y: -0.3}
+  m_euler: {x: 0, y: 0, z: 0}
   m_isHorizontalSlash: 1
 --- !u!1101 &-7118456937730232104
 AnimatorStateTransition:
@@ -731,10 +731,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e1e349b556444271b4715141212eed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_slashPrefab: {fileID: 7649484838835093599, guid: 2c737ce169de34f7cadd9f333ba95a00,
+  m_slashPrefab: {fileID: 9017896563136926800, guid: dda1c13ff7ab3435cb2058b315994b40,
     type: 3}
-  m_offset: {x: 0, y: -0.66}
-  m_rotation: {x: 0, y: 0, z: 0, w: 0}
+  m_offset: {x: 0.2, y: -1.2}
+  m_euler: {x: 0, y: 0, z: 90}
   m_isHorizontalSlash: 0
 --- !u!1102 &727308968611290907
 AnimatorState:
@@ -1026,8 +1026,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_slashPrefab: {fileID: 9017896563136926800, guid: dda1c13ff7ab3435cb2058b315994b40,
     type: 3}
-  m_offset: {x: 0, y: 0.66}
-  m_rotation: {x: 0, y: 0, z: 90, w: 0}
+  m_offset: {x: 0.2, y: 1.2}
+  m_euler: {x: 0, y: 0, z: -90}
   m_isHorizontalSlash: 0
 --- !u!1102 &8193164605509015419
 AnimatorState:

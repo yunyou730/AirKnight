@@ -9,7 +9,8 @@ namespace ff
         AriesController m_controller = null;
         public GameObject m_slashPrefab = null;
         public Vector2 m_offset;
-        public Quaternion m_rotation;
+        public Vector3 m_euler;
+
 
         private Vector3 m_slashPos;
         public bool m_isHorizontalSlash = false;
@@ -27,17 +28,27 @@ namespace ff
         private GameObject CreateSlash()
         {
             GameObject slash = GameObject.Instantiate(m_slashPrefab,Vector3.zero,Quaternion.identity);
-            //GameObject slash = GameObject.Instantiate(m_slashPrefab, Vector3.zero, m_rotation);
             m_slashPos = m_controller.transform.position;
-            m_slashPos.x += m_offset.x;
-            m_slashPos.y += m_offset.y;
-            if (slash.GetComponent<ff.AriesHorizontalSlash>() != null)
+
+            float horizonOffset = m_offset.x;
+            if (m_controller.m_faceDir == FaceDir.LEFT)
             {
+                // vertical slash
+                horizonOffset = -horizonOffset;
+            }
+
+            m_slashPos.x += horizonOffset;
+            m_slashPos.y += m_offset.y;
+
+            if (m_isHorizontalSlash && slash.GetComponent<ff.AriesHorizontalSlash>() != null)
+            {
+                // horizontal slash
                 m_slashPos += m_controller.GetFront();
                 ff.AriesHorizontalSlash horizonSlash = slash.GetComponent<ff.AriesHorizontalSlash>();
                 horizonSlash.InitWithOwner(m_controller);
             }
             slash.transform.position = m_slashPos;
+            slash.transform.localEulerAngles = m_euler;
             return slash;
         }
     }
