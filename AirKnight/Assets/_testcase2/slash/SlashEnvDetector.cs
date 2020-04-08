@@ -27,6 +27,18 @@ namespace ff
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            CheckBounceSelf(collision);
+            CheckHurtOther(collision);
+        }
+
+        public void InitWithOwner(GameObject owner)
+        {
+            m_owner = owner;
+        }
+
+
+        private void CheckBounceSelf(Collider2D collision)
+        {
             if (collision.gameObject != m_owner)
             {
                 CanBeBounceAway canBeBounceAway = m_owner.GetComponent<CanBeBounceAway>();
@@ -35,16 +47,13 @@ namespace ff
                     canBeBounceAway.DoBounce(gameObject);
                 }
             }
-            
-
-
-
         }
 
-        public void InitWithOwner(GameObject owner)
+        private void CheckHurtOther(Collider2D collision)
         {
-            m_owner = owner;
+
         }
+
     }
 
 }

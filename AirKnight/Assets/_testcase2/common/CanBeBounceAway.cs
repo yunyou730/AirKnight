@@ -21,7 +21,7 @@ namespace ff
         {
             Vector3 dir = transform.position - source.transform.position;
             dir.Normalize();
-            m_rigid.AddForce(dir * m_bounceAwayForce);
+            m_rigid.AddForce(dir * m_bounceAwayForce,ForceMode2D.Impulse);
         }
     }
 }
