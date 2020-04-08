@@ -14,19 +14,7 @@ namespace ff
         {
             m_spriteRenderer = GetComponent<SpriteRenderer>();
         }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
+        
         public void InitWithOwner(AriesController controller)
         {
             m_controller = controller;

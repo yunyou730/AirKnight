@@ -27,19 +27,24 @@ namespace ff
         
         private GameObject CreateSlash()
         {
+            // create slash
             GameObject slash = GameObject.Instantiate(m_slashPrefab,Vector3.zero,Quaternion.identity);
-            m_slashPos = m_controller.transform.position;
+            if (slash.GetComponent<SlashEnvDetector>() != null)
+            {
+                slash.GetComponent<SlashEnvDetector>().InitWithOwner(m_controller.gameObject);
+            }
 
+            // locate position
+            m_slashPos = m_controller.transform.position;
             float horizonOffset = m_offset.x;
             if (m_controller.m_faceDir == FaceDir.LEFT)
             {
-                // vertical slash
                 horizonOffset = -horizonOffset;
             }
-
             m_slashPos.x += horizonOffset;
             m_slashPos.y += m_offset.y;
 
+            // update face
             if (m_isHorizontalSlash && slash.GetComponent<ff.AriesHorizontalSlash>() != null)
             {
                 // horizontal slash

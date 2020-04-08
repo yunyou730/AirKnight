@@ -6,7 +6,7 @@ public class SlashAutoDestroy : MonoBehaviour
 {
     public void DestroySelf()
     {
-        Debug.Log("DestroySelf ...");
+        //Debug.Log("DestroySelf ...");
         Destroy(gameObject);
     }
 }

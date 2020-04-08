@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 4892753318002672682}
   - component: {fileID: 4892753318002672685}
   - component: {fileID: 4892753318002672684}
+  - component: {fileID: 443082290}
+  - component: {fileID: 443082291}
   m_Layer: 0
   m_Name: Aries
   m_TagString: Untagged
@@ -212,3 +214,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_continouslyJumpValue: 120
   m_moveSpeedValue: 3.5
+--- !u!114 &443082290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4892753318002672693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0d43eacd8dc4a84bf19d0bebc09df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bounceAwayForce: 1000
+--- !u!114 &443082291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4892753318002672693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40a0ad8fb990411ca835db812bb76b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hp: 1
+  m_isInvincible: 0
