@@ -10,10 +10,12 @@ namespace ff
     {
         public Text m_fpsLabel = null;
         StringBuilder m_strFPS = new StringBuilder();
+        TimeMachine m_timeMachine = new TimeMachine();
         
         public void Update()
         {
             RefreshFPS(Time.deltaTime);
+            m_timeMachine.Update();
         }
 
 
@@ -30,5 +32,24 @@ namespace ff
         {
             Application.targetFrameRate = 30;
         }
+
+
+        public void OnClickRecord()
+        {
+            m_timeMachine.StartRecord();
+        }
+
+        public void OClickPlayBack()
+        {
+            m_timeMachine.StartPlayBack();
+        }
+
+        public void OnClickRegisterAries()
+        {
+            Debug.Log("RegisterAries");
+            Recorder recorder = GameObject.Find("Aries").GetComponent<AriesRecorder>();
+            m_timeMachine.RegisterRecorder(recorder);
+        }
+
     }
 }
