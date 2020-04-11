@@ -136,7 +136,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_continouslyJumpMaxPeriod: 0.15
   m_jumpElapsedPeriod: 0
-  m_leftKey: A
+  HORIZONTAL_KEY: 1p_horizontal
+  VERTICAL_KEY: 1p_vertical
+  JUMP_KEY: 1p_jump
+  ATK_KEY: 1p_atk_1
 --- !u!50 &4892753318002672683
 Rigidbody2D:
   serializedVersion: 4

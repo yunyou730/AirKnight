@@ -35,7 +35,7 @@ namespace ff
         [SerializeField]
         private string JUMP_KEY = "1p_jump";
         [SerializeField]
-        private string ATK_KEY = "1p_atk";
+        private string ATK_KEY = "1p_atk_1";
 
         // avoid new Vector3 each frame,declare one for re-use in each frame
         private Vector3 m_front;
@@ -47,18 +47,11 @@ namespace ff
             m_envDetector = GetComponent<ff.EnvironmentDetector>();
             m_phyBridge = GetComponent<ff.PhysicBridge>();
             m_spriteRenderer = GetComponent<SpriteRenderer>();
-
-            /*
-            m_horizontalAxe = new ff.InputAxe("Horizontal");
-            m_jumpButton = new ff.InputButton("Jump");
-            m_attackButton = new ff.InputButton("Fire1");
-            */
-
+            
             m_horizontalAxe = new ff.InputAxe(HORIZONTAL_KEY);
             m_verticalAxe = new ff.InputAxe(VERTICAL_KEY);
             m_jumpButton = new ff.InputButton(JUMP_KEY);
-            m_attackButton = new ff.InputButton("Fire1");
-
+            m_attackButton = new ff.InputButton(ATK_KEY);
         }
 
         void Start()
@@ -128,7 +121,7 @@ namespace ff
             bool bUpHolding = false;
             bool bDownHolding = false;
             float verticalAxeValue = m_verticalAxe.GetValue();//Input.GetAxis("Vertical");
-            Debug.Log("[vertical axe] " + verticalAxeValue);
+            //Debug.Log("[vertical axe] " + verticalAxeValue);
             if (verticalAxeValue > 0)
             {
                 bUpHolding = true;
