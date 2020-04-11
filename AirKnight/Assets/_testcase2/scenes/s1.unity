@@ -698,24 +698,6 @@ Transform:
   m_Father: {fileID: 845374501}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &685253347 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4892753318002672693, guid: d9a7981efb4f44f299605a2bdd96f196,
-    type: 3}
-  m_PrefabInstance: {fileID: 4892753316978390489}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &685253348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 685253347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89a5084214f5e4b10aa915cf206ce62f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &686330600
 GameObject:
   m_ObjectHideFlags: 0
@@ -2042,9 +2024,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 443082290, guid: d9a7981efb4f44f299605a2bdd96f196, type: 3}
-      propertyPath: m_bounceAwayForce
-      value: 25
+    - target: {fileID: 4892753318002672681, guid: d9a7981efb4f44f299605a2bdd96f196,
+        type: 3}
+      propertyPath: HORIZONTAL_KEY
+      value: 1p_horizontal
       objectReference: {fileID: 0}
     - target: {fileID: 4892753318002672693, guid: d9a7981efb4f44f299605a2bdd96f196,
         type: 3}

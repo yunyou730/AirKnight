@@ -10,6 +10,7 @@ namespace ff
         AriesAnimBridge m_animBridge = null;
         
         private ff.InputAxe m_horizontalAxe = null;
+        private ff.InputAxe m_verticalAxe = null;
         private ff.InputButton m_jumpButton = null;
         private ff.InputButton m_attackButton = null;
 
@@ -19,16 +20,25 @@ namespace ff
 
         public ff.FaceDir m_faceDir { get; set; } = ff.FaceDir.LEFT;     // depend on origin image 
 
-
+        [Header("Jump Factors")]
         [SerializeField]
         private float m_continouslyJumpMaxPeriod = 0.8f;
         [SerializeField]
         private float m_jumpElapsedPeriod = 0.0f;
 
 
-        // avoid temporary new,declare here
+        [Header("Input Config")]
+        [SerializeField]
+        private string HORIZONTAL_KEY = "1p_horizontal";
+        [SerializeField]
+        private string VERTICAL_KEY = "1p_vertical";
+        [SerializeField]
+        private string JUMP_KEY = "1p_jump";
+        [SerializeField]
+        private string ATK_KEY = "1p_atk";
+
+        // avoid new Vector3 each frame,declare one for re-use in each frame
         private Vector3 m_front;
-        
 
         private void Awake()
         {
@@ -38,14 +48,22 @@ namespace ff
             m_phyBridge = GetComponent<ff.PhysicBridge>();
             m_spriteRenderer = GetComponent<SpriteRenderer>();
 
+            /*
             m_horizontalAxe = new ff.InputAxe("Horizontal");
             m_jumpButton = new ff.InputButton("Jump");
             m_attackButton = new ff.InputButton("Fire1");
+            */
+
+            m_horizontalAxe = new ff.InputAxe(HORIZONTAL_KEY);
+            m_verticalAxe = new ff.InputAxe(VERTICAL_KEY);
+            m_jumpButton = new ff.InputButton(JUMP_KEY);
+            m_attackButton = new ff.InputButton("Fire1");
+
         }
 
         void Start()
         {
-
+            
         }
 
         void Update()
@@ -77,8 +95,11 @@ namespace ff
 
         private void CollectInput(float dt)
         {
-            // horizon move
             m_horizontalAxe.Update(dt);
+            m_verticalAxe.Update(dt);
+            m_jumpButton.Update(dt);
+
+            // horizon move
             m_animator.SetFloat(m_animBridge.horizonAxeHoldTime, m_horizontalAxe.m_holdDuration);
             m_animator.SetBool(m_animBridge.isHorizonAxeHold,m_horizontalAxe.IsHolding());
             
@@ -95,8 +116,6 @@ namespace ff
                 m_spriteRenderer.flipX = false;
             }
             
-            // jump
-            m_jumpButton.Update(dt);
 
             // attack
             m_attackButton.Update(dt);
@@ -108,7 +127,8 @@ namespace ff
             // vertical direction
             bool bUpHolding = false;
             bool bDownHolding = false;
-            float verticalAxeValue = Input.GetAxis("Vertical");
+            float verticalAxeValue = m_verticalAxe.GetValue();//Input.GetAxis("Vertical");
+            Debug.Log("[vertical axe] " + verticalAxeValue);
             if (verticalAxeValue > 0)
             {
                 bUpHolding = true;

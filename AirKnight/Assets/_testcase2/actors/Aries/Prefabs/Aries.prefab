@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 4892753318002672684}
   - component: {fileID: 443082290}
   - component: {fileID: 443082291}
+  - component: {fileID: 685253348}
   m_Layer: 0
   m_Name: Aries
   m_TagString: Untagged
@@ -135,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_continouslyJumpMaxPeriod: 0.15
   m_jumpElapsedPeriod: 0
+  m_leftKey: A
 --- !u!50 &4892753318002672683
 Rigidbody2D:
   serializedVersion: 4
@@ -241,3 +243,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_hp: 1
   m_isInvincible: 0
+--- !u!114 &685253348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4892753318002672693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89a5084214f5e4b10aa915cf206ce62f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
