@@ -7,7 +7,10 @@ namespace ff
     public interface Recorder
     {
         TimeFrame DoRecord();
-        void PlayBack(TimeFrame timeFrame);
+        void DoPlayBack(TimeFrame timeFrame);
+
+        void StartRecord();
+        void StartPlayBack();
     }
 }
 

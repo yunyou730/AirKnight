@@ -7,7 +7,6 @@ namespace ff
 {
     public class TimeMachine
     {
-        
         public enum State
         {
             Record,
@@ -29,11 +28,13 @@ namespace ff
         public void StartPlayBack()
         {
             m_state = State.PlayBack;
+            RecordersStartPlayBack();
         }
 
         public void StartRecord()
         {
             m_state = State.Record;
+            RecordersStartRecord();
         }
 
         public void Update()
@@ -41,21 +42,43 @@ namespace ff
             switch (m_state)
             {
                 case State.Record:
-                    {
-                        foreach (RecorderItem item in m_recorderMap.Values)
-                        {
-                            item.Record();
-                        }
-                    }
+                    RecordersDoRecord();
                     break;
                 case State.PlayBack:
-                    {
-                        foreach (RecorderItem item in m_recorderMap.Values)
-                        {
-                            item.PlayBack();
-                        }
-                    }
+                    RecordersDoPlayBack();
                     break;
+            }
+        }
+
+        private void RecordersDoRecord()
+        {
+            foreach (RecorderItem item in m_recorderMap.Values)
+            {
+                item.Record();
+            }
+        }
+
+        private void RecordersDoPlayBack()
+        {
+            foreach (RecorderItem item in m_recorderMap.Values)
+            {
+                item.PlayBack();
+            }
+        }
+
+        private void RecordersStartRecord()
+        {
+            foreach (RecorderItem item in m_recorderMap.Values)
+            {
+                item.StartRecord();
+            }
+        }
+
+        private void RecordersStartPlayBack()
+        {
+            foreach (RecorderItem item in m_recorderMap.Values)
+            {
+                item.StartPlayBack();
             }
         }
     }
@@ -65,6 +88,7 @@ namespace ff
         public int m_id = 0;
         public Recorder m_recorder = null;
         public List<TimeFrame> m_frames = new List<TimeFrame>();
+        public int m_maxHoldFrames = 1200;
 
         public RecorderItem(int id,Recorder recorder)
         {
@@ -83,17 +107,31 @@ namespace ff
             {
                 int index = m_frames.Count - 1;
                 TimeFrame frame = m_frames[index];
-                m_recorder.PlayBack(frame);
+                m_recorder.DoPlayBack(frame);
                 m_frames.RemoveAt(index);
             }
         }
-
         
         public void Record()
         {
+            if (m_frames.Count >= m_maxHoldFrames)
+            {
+                m_frames.RemoveAt(0);
+            }
             TimeFrame frame = m_recorder.DoRecord();
             m_frames.Add(frame);
         }
+        
+        public void StartRecord()
+        {
+            m_recorder.StartRecord();
+        }
+
+        public void StartPlayBack()
+        {
+            m_recorder.StartPlayBack();
+        }
+
     }
 }
 
