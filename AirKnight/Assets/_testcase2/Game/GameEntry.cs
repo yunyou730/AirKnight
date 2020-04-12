@@ -11,7 +11,13 @@ namespace ff
         public Text m_fpsLabel = null;
         StringBuilder m_strFPS = new StringBuilder();
         TimeMachine m_timeMachine = new TimeMachine();
-        
+
+
+        private void Awake()
+        {
+            Physics2D.queriesStartInColliders = false;
+        }
+
         public void Update()
         {
             RefreshFPS(Time.deltaTime);

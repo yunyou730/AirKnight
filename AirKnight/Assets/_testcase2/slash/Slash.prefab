@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2031766365}
   - component: {fileID: 1352508333903636549}
   - component: {fileID: 5039797813182748194}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Slash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,3 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51bf04c97717d4f9db7b658c8db79b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_checkLayer:
+    serializedVersion: 2
+    m_Bits: 0

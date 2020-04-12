@@ -48,9 +48,5 @@ namespace ff
             }
             Debug.DrawRay(groundCheckerFrom, -Vector2.up * groundCheckerLength, groundCheckerLineColor);
         }
-
-
-
-        
     }
 }

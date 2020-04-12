@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace ff
 {
+    public enum PlayerCtrlSource
+    {
+        PCS_1P,
+        PCS_2P,
+    }
+
     public class AriesController : MonoBehaviour
     {
         Animator m_animator = null;
@@ -28,14 +34,12 @@ namespace ff
 
 
         [Header("Input Config")]
+        private string HORIZONTAL_KEY = "p_horizontal";
+        private string VERTICAL_KEY = "p_vertical";
+        private string JUMP_KEY = "p_jump";
+        private string ATK_KEY = "p_atk_1";
         [SerializeField]
-        private string HORIZONTAL_KEY = "1p_horizontal";
-        [SerializeField]
-        private string VERTICAL_KEY = "1p_vertical";
-        [SerializeField]
-        private string JUMP_KEY = "1p_jump";
-        [SerializeField]
-        private string ATK_KEY = "1p_atk_1";
+        PlayerCtrlSource m_ctrlSource = PlayerCtrlSource.PCS_1P;
 
         // avoid new Vector3 each frame,declare one for re-use in each frame
         private Vector3 m_front;
@@ -47,11 +51,18 @@ namespace ff
             m_envDetector = GetComponent<ff.EnvironmentDetector>();
             m_phyBridge = GetComponent<ff.PhysicBridge>();
             m_spriteRenderer = GetComponent<SpriteRenderer>();
-            
-            m_horizontalAxe = new ff.InputAxe(HORIZONTAL_KEY);
-            m_verticalAxe = new ff.InputAxe(VERTICAL_KEY);
-            m_jumpButton = new ff.InputButton(JUMP_KEY);
-            m_attackButton = new ff.InputButton(ATK_KEY);
+
+
+            string ctrlSourcePrefix = "1";
+            if (m_ctrlSource == PlayerCtrlSource.PCS_2P)
+            {
+                ctrlSourcePrefix = "2";
+            }
+            m_horizontalAxe = new ff.InputAxe(ctrlSourcePrefix + HORIZONTAL_KEY);
+            m_verticalAxe = new ff.InputAxe(ctrlSourcePrefix + VERTICAL_KEY);
+            m_jumpButton = new ff.InputButton(ctrlSourcePrefix + JUMP_KEY);
+            m_attackButton = new ff.InputButton(ctrlSourcePrefix + ATK_KEY);
+
         }
 
         void Start()

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CanBeHit : MonoBehaviour
+namespace ff
 {
-    [SerializeField]
-    private int m_hp = 1;
-
-    [SerializeField]
-    private bool m_isInvincible = false;
-
-
-
+    public class CanBeHit : MonoBehaviour
+    {
+        public virtual void OnBeHit(GameObject caster)
+        {
+            Debug.Log("[CanBeHit][OnBeHit]");
+        }
+    }
 }

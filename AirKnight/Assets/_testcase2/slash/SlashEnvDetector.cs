@@ -10,6 +10,9 @@ namespace ff
         private GameObject m_owner = null;
         private BoxCollider2D m_collider = null;
 
+        [SerializeField]
+        LayerMask m_checkLayer;
+
         private void Awake()
         {
             m_collider = GetComponent<BoxCollider2D>();
@@ -27,7 +30,7 @@ namespace ff
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            CheckBounceSelf(collision);
+            //CheckBounceOwner(collision);
             CheckHurtOther(collision);
         }
 
@@ -36,8 +39,7 @@ namespace ff
             m_owner = owner;
         }
 
-
-        private void CheckBounceSelf(Collider2D collision)
+        private void CheckBounceOwner(Collider2D collision)
         {
             if (collision.gameObject != m_owner)
             {
@@ -51,7 +53,14 @@ namespace ff
 
         private void CheckHurtOther(Collider2D collision)
         {
-
+            if (collision.gameObject != m_owner)
+            {
+                CanBeHit canBeHit = collision.GetComponent<CanBeHit>();
+                if (canBeHit != null)
+                {
+                    canBeHit.OnBeHit(m_owner);
+                }
+            }
         }
 
     }
