@@ -21,10 +21,10 @@ namespace ff
             switch (m_controller.m_faceDir)
             {
                 case FaceDir.LEFT:
-                    m_spriteRenderer.flipX = false;
+                    transform.localScale = new Vector3(-1,1,1);
                     break;
                 case FaceDir.RIGHT:
-                    m_spriteRenderer.flipX = true;
+                    transform.localScale = new Vector3(1, 1, 1);
                     break;
             }
         }
