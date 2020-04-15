@@ -20,6 +20,9 @@ namespace ff
         // layer attack
         public int atkTrigger { set; get; }
 
+        // layer hurt
+        public int hurtTrigger { set; get; }
+
         private void Awake()
         {
             m_animator = GetComponent<Animator>();
@@ -31,7 +34,7 @@ namespace ff
             isUpArrowHold = Animator.StringToHash("is_up_arrow_hold");
             isDownArrowHold = Animator.StringToHash("is_down_arrow_hold");
             atkTrigger = Animator.StringToHash("atk_trigger");
+            hurtTrigger = Animator.StringToHash("hurt_trigger");
         }
     }
-
 }

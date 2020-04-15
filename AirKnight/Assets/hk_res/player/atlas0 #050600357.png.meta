@@ -1255,7 +1255,7 @@ TextureImporter:
     second: atlas0 #050600357_416
   - first:
       213: 21300834
-    second: atlas0 #050600357_417
+    second: atlas0 #050600357_hurt_1
   - first:
       213: 21300836
     second: atlas0 #050600357_418
@@ -10451,7 +10451,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: atlas0 #050600357_417
+      name: atlas0 #050600357_hurt_1
       rect:
         serializedVersion: 2
         x: 1801

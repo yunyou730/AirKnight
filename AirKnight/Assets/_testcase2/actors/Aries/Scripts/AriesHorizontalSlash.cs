@@ -7,12 +7,11 @@ namespace ff
     [RequireComponent(typeof(SpriteRenderer))]
     public class AriesHorizontalSlash : MonoBehaviour
     {
-        SpriteRenderer m_spriteRenderer = null;
         AriesController m_controller = null;
 
         private void Awake()
         {
-            m_spriteRenderer = GetComponent<SpriteRenderer>();
+            
         }
         
         public void InitWithOwner(AriesController controller)
@@ -29,5 +28,4 @@ namespace ff
             }
         }
     }
-
 }
