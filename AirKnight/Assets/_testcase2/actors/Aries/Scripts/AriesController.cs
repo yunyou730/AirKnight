@@ -111,13 +111,11 @@ namespace ff
             // face direction
             if (m_horizontalAxe.GetValue() > 0 && m_faceDir != FaceDir.RIGHT)
             {
-                m_faceDir = FaceDir.RIGHT;
-                m_spriteRenderer.flipX = true;
+                SetFace(FaceDir.RIGHT);
             }
             else if (m_horizontalAxe.GetValue() < 0 && m_faceDir != FaceDir.LEFT)
             {
-                m_faceDir = FaceDir.LEFT;
-                m_spriteRenderer.flipX = false;
+                SetFace(FaceDir.LEFT);
             }
             
 
@@ -154,6 +152,14 @@ namespace ff
             m_animator.SetFloat(m_animBridge.airSpeed, m_phyBridge.GetVerticalSpeed());
         }
 
+        public void SetFace(FaceDir nextFace)
+        {
+            if (m_faceDir != nextFace)
+            {
+                m_faceDir = nextFace;
+                m_spriteRenderer.flipX = m_faceDir == FaceDir.LEFT ? false : true;
+            }
+        }
     
         private void UpdateJump(float dt)
         {

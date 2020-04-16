@@ -22,6 +22,7 @@ namespace ff
 
         // layer hurt
         public int hurtTrigger { set; get; }
+        public int hurtRecoverTrigger { set; get; }
 
         private void Awake()
         {
@@ -35,6 +36,7 @@ namespace ff
             isDownArrowHold = Animator.StringToHash("is_down_arrow_hold");
             atkTrigger = Animator.StringToHash("atk_trigger");
             hurtTrigger = Animator.StringToHash("hurt_trigger");
+            hurtRecoverTrigger = Animator.StringToHash("hurt_recover");
         }
     }
 }
