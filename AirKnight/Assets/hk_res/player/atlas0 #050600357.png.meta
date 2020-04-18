@@ -1598,6 +1598,9 @@ TextureImporter:
   - first:
       213: 21301062
     second: atlas0 #050600357_531_LR_atk_eff_2
+  - first:
+      213: -2363452915422247947
+    second: atlas0 #050600357_417
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -1665,7 +1668,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 4096
@@ -1677,7 +1680,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 4096

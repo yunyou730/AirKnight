@@ -20,6 +20,10 @@ namespace ff
         // layer attack
         public int atkTrigger { set; get; }
 
+        // layer dash
+        public int dashTrigger { set; get; }
+        public int dashRecoverTrigger { set; get; }
+
         // layer hurt
         public int hurtTrigger { set; get; }
         public int hurtRecoverTrigger { set; get; }
@@ -37,6 +41,8 @@ namespace ff
             atkTrigger = Animator.StringToHash("atk_trigger");
             hurtTrigger = Animator.StringToHash("hurt_trigger");
             hurtRecoverTrigger = Animator.StringToHash("hurt_recover");
+            dashTrigger = Animator.StringToHash("dash_trigger");
+            dashRecoverTrigger = Animator.StringToHash("dash_recover");
         }
     }
 }

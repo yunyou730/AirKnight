@@ -14,11 +14,13 @@ namespace ff
     {
         Animator m_animator = null;
         AriesAnimBridge m_animBridge = null;
+        AriesDash m_dash = null;
         
         private ff.InputAxe m_horizontalAxe = null;
         private ff.InputAxe m_verticalAxe = null;
         private ff.InputButton m_jumpButton = null;
         private ff.InputButton m_attackButton = null;
+        private ff.InputButton m_dashButton = null;
 
         private ff.EnvironmentDetector m_envDetector = null;
         private ff.PhysicBridge m_phyBridge = null;
@@ -38,6 +40,7 @@ namespace ff
         private string VERTICAL_KEY = "p_vertical";
         private string JUMP_KEY = "p_jump";
         private string ATK_KEY = "p_atk_1";
+        private string DASH_KEY = "p_dash";
         [SerializeField]
         PlayerCtrlSource m_ctrlSource = PlayerCtrlSource.PCS_1P;
 
@@ -47,10 +50,13 @@ namespace ff
         private void Awake()
         {
             m_animator = GetComponent<Animator>();
-            m_animBridge = GetComponent<ff.AriesAnimBridge>();
+            m_animBridge = gameObject.AddComponent<ff.AriesAnimBridge>();
             m_envDetector = GetComponent<ff.EnvironmentDetector>();
             m_phyBridge = GetComponent<ff.PhysicBridge>();
             m_spriteRenderer = GetComponent<SpriteRenderer>();
+            m_dash = gameObject.AddComponent<ff.AriesDash>();
+            gameObject.AddComponent<ff.AriesBeHit>();
+
 
 
             string ctrlSourcePrefix = "1";
@@ -62,6 +68,7 @@ namespace ff
             m_verticalAxe = new ff.InputAxe(ctrlSourcePrefix + VERTICAL_KEY);
             m_jumpButton = new ff.InputButton(ctrlSourcePrefix + JUMP_KEY);
             m_attackButton = new ff.InputButton(ctrlSourcePrefix + ATK_KEY);
+            m_dashButton = new ff.InputButton(ctrlSourcePrefix + DASH_KEY);
 
         }
 
@@ -141,6 +148,14 @@ namespace ff
             }
             m_animator.SetBool(m_animBridge.isUpArrowHold,bUpHolding);
             m_animator.SetBool(m_animBridge.isDownArrowHold,bDownHolding);
+
+
+            // dash
+            m_dashButton.Update(dt);
+            if (m_dashButton.IsPress())
+            {
+                m_dash.StartDash();
+            }
         }
 
 

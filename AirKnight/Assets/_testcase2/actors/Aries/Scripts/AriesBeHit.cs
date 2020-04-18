@@ -17,12 +17,12 @@ namespace ff
 
 
         [SerializeField]
-        private float m_hitAwaySpeed = 3.0f;
+        private float m_hitAwaySpeed = 15;
         [SerializeField]
-        private float m_angleFactor = 0.5f;
+        private float m_angleFactor = 1f;
+        [SerializeField]
+        private float m_maxHurtPeriod = 0.1f;
 
-        [SerializeField]
-        private float m_maxHurtPeriod = 1.0f;
         private float m_prevGravityScale = 1.0f;
 
         private Vector2 m_bounceVelocity = Vector2.zero;
