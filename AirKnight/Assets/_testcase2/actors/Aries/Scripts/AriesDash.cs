@@ -12,9 +12,9 @@ namespace ff
         ff.AriesController m_ctrl = null;
 
         [SerializeField]
-        private float m_dashKeepTime = 0.8f;
+        private float m_dashKeepTime = 0.3f;
         [SerializeField]
-        private float m_dashSpeed = 10.0f;
+        private float m_dashSpeed = 20.0f;
 
         float m_startGravityScale = 0.0f;
         bool m_bDashing = false;
