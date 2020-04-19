@@ -29,6 +29,9 @@ namespace ff
 
         public void StartDash()
         {
+            if (m_bDashing)
+                return;
+
             m_bDashing = true;
 
             m_startGravityScale = m_rigid.gravityScale;

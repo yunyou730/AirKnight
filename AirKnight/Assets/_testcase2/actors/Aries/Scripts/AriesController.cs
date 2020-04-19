@@ -14,26 +14,20 @@ namespace ff
     {
         Animator m_animator = null;
         AriesAnimBridge m_animBridge = null;
+        AriesJump m_jump = null;
         AriesDash m_dash = null;
         
-        private ff.InputAxe m_horizontalAxe = null;
-        private ff.InputAxe m_verticalAxe = null;
-        private ff.InputButton m_jumpButton = null;
-        private ff.InputButton m_attackButton = null;
-        private ff.InputButton m_dashButton = null;
+        public ff.InputAxe m_horizontalAxe = null;
+        public ff.InputAxe m_verticalAxe = null;
+        public ff.InputButton m_jumpButton = null;
+        public ff.InputButton m_attackButton = null;
+        public ff.InputButton m_dashButton = null;
 
         private ff.EnvironmentDetector m_envDetector = null;
         private ff.PhysicBridge m_phyBridge = null;
         private SpriteRenderer m_spriteRenderer = null;
 
         public ff.FaceDir m_faceDir { get; set; } = ff.FaceDir.LEFT;     // depend on origin image 
-
-        [Header("Jump Factors")]
-        [SerializeField]
-        private float m_continouslyJumpMaxPeriod = 0.8f;
-        [SerializeField]
-        private float m_jumpElapsedPeriod = 0.0f;
-
 
         [Header("Input Config")]
         private string HORIZONTAL_KEY = "p_horizontal";
@@ -54,11 +48,11 @@ namespace ff
             m_envDetector = GetComponent<ff.EnvironmentDetector>();
             m_phyBridge = GetComponent<ff.PhysicBridge>();
             m_spriteRenderer = GetComponent<SpriteRenderer>();
+            m_jump = gameObject.AddComponent<ff.AriesJump>();
             m_dash = gameObject.AddComponent<ff.AriesDash>();
             gameObject.AddComponent<ff.AriesBeHit>();
 
-
-
+            
             string ctrlSourcePrefix = "1";
             if (m_ctrlSource == PlayerCtrlSource.PCS_2P)
             {
@@ -86,17 +80,6 @@ namespace ff
             // horizon move
             m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
 
-
-            // jump
-            if (m_jumpButton.IsPress() && m_envDetector.isOnGround)
-            {
-                m_jumpElapsedPeriod = 0;
-                UpdateJump(dt);
-            }
-            if (m_jumpButton.IsHold() && m_jumpElapsedPeriod < m_continouslyJumpMaxPeriod)
-            {
-                UpdateJump(dt);
-            }
         }
 
         private void FixedUpdate()
@@ -109,6 +92,7 @@ namespace ff
             m_horizontalAxe.Update(dt);
             m_verticalAxe.Update(dt);
             m_jumpButton.Update(dt);
+            m_dashButton.Update(dt);
 
             // horizon move
             m_animator.SetFloat(m_animBridge.horizonAxeHoldTime, m_horizontalAxe.m_holdDuration);
@@ -151,7 +135,6 @@ namespace ff
 
 
             // dash
-            m_dashButton.Update(dt);
             if (m_dashButton.IsPress())
             {
                 m_dash.StartDash();
@@ -176,16 +159,16 @@ namespace ff
             }
         }
     
-        private void UpdateJump(float dt)
-        {
-            float calcJumpDeltaTime = dt;
-            if (m_jumpElapsedPeriod + dt >= m_continouslyJumpMaxPeriod)
-            {
-                calcJumpDeltaTime = calcJumpDeltaTime - (m_jumpElapsedPeriod + dt - m_continouslyJumpMaxPeriod);
-            }
-            m_jumpElapsedPeriod += dt;
-            m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime);
-        }
+        //private void UpdateJump(float dt)
+        //{
+        //    float calcJumpDeltaTime = dt;
+        //    if (m_jumpElapsedPeriod + dt >= m_continouslyJumpMaxPeriod)
+        //    {
+        //        calcJumpDeltaTime = calcJumpDeltaTime - (m_jumpElapsedPeriod + dt - m_continouslyJumpMaxPeriod);
+        //    }
+        //    m_jumpElapsedPeriod += dt;
+        //    m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime);
+        //}
 
         public Vector3 GetFront()
         {
