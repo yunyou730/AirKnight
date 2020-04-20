@@ -22,11 +22,10 @@ namespace ff
         private Rigidbody2D m_rigidBody = null;
     
         [SerializeField]
-        //private float m_continouslyJumpMaxPeriod = 0.15f;
         private float m_continouslyJumpMaxPeriod = 0.2f;
         private float m_jumpElapsedPeriod = 0.0f;
 
-
+        [SerializeField]
         private float m_continouselyJump2MaxPeriod = 0.2f;
         private float m_jump2ElapsedPeriod = 0.0f;
 
@@ -42,6 +41,7 @@ namespace ff
 
         bool m_bHasReleaseJumpBtnInJump1 = false;
         //bool m_bHasReleaseJumpBtnInJump2 = false;
+
 
         private void Awake()
         {
@@ -203,6 +203,7 @@ namespace ff
         {
 
         }
+
     }
 
 }

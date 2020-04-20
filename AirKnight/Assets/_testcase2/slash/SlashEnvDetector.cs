@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace ff
 {
-    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(Collider2D))]
     public class SlashEnvDetector : MonoBehaviour
     {
         private GameObject m_owner = null;
-        private BoxCollider2D m_collider = null;
+        private Collider2D m_collider = null;
 
         [SerializeField]
         LayerMask m_checkLayer;
 
         private void Awake()
         {
-            m_collider = GetComponent<BoxCollider2D>();
+            m_collider = GetComponent<Collider2D>();
         }
 
         void Start()
