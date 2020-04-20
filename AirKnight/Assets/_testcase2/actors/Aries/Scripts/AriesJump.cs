@@ -22,7 +22,8 @@ namespace ff
         private Rigidbody2D m_rigidBody = null;
     
         [SerializeField]
-        private float m_continouslyJumpMaxPeriod = 0.15f;
+        //private float m_continouslyJumpMaxPeriod = 0.15f;
+        private float m_continouslyJumpMaxPeriod = 0.2f;
         private float m_jumpElapsedPeriod = 0.0f;
 
 
@@ -31,6 +32,16 @@ namespace ff
 
         [SerializeField]
         private JumpState m_jumpState = JumpState.Invalid;
+
+
+        [SerializeField]
+        private float m_jump1Value = 120;
+        [SerializeField]
+        private float m_jump2Value = 120;
+
+
+        bool m_bHasReleaseJumpBtnInJump1 = false;
+        //bool m_bHasReleaseJumpBtnInJump2 = false;
 
         private void Awake()
         {
@@ -67,30 +78,52 @@ namespace ff
                             SwitchState(JumpState.Jump1);
                             UpdateJump(dt);
                         }
+                        else if (!m_envDetector.isOnGround)
+                        {
+                            SwitchState(JumpState.Jump1);
+                        }
                     }
                     break;
                 case JumpState.Jump1:
-                    if (m_ctrl.m_jumpButton.IsHold() && m_jumpElapsedPeriod < m_continouslyJumpMaxPeriod)
+
+                    if (m_ctrl.m_jumpButton.IsRelease())
                     {
-                        UpdateJump(dt);
+                        m_bHasReleaseJumpBtnInJump1 = true;
                     }
-                    /*
-                    else if(m_ctrl.m_jumpButton.IsPress())
+
+                    Vector2 curVelocity = m_rigidBody.velocity;
+                    if(curVelocity.y >= 0)
                     {
-                        SwitchState(JumpState.Jump2);
-                        UpdateJump2(dt);
+                        if (m_ctrl.m_jumpButton.IsHold()
+                            && m_jumpElapsedPeriod < m_continouslyJumpMaxPeriod)
+                        {
+                            UpdateJump(dt);
+                        }
                     }
-                    */
+                    else
+                    {
+                        if (m_ctrl.m_jumpButton.IsPress()
+                            || (m_ctrl.m_jumpButton.IsHold() && m_bHasReleaseJumpBtnInJump1))
+                        {
+                            SwitchState(JumpState.Jump2);
+                        }
+                    }
+                    
+
                     if (m_rigidBody.velocity.y <= 0 && m_envDetector.isOnGround)
                     {
                         SwitchState(JumpState.None);
                     }
                     break;
                 case JumpState.Jump2:
-                    if (m_ctrl.m_jumpButton.IsHold() && m_jump2ElapsedPeriod < m_continouselyJump2MaxPeriod)
+                    if (m_ctrl.m_jumpButton.IsHold()
+                        && m_jump2ElapsedPeriod < m_continouselyJump2MaxPeriod)
                     {
+
                         UpdateJump2(dt);
                     }
+
+
                     if (m_rigidBody.velocity.y <= 0 && m_envDetector.isOnGround)
                     {
                         SwitchState(JumpState.None);
@@ -107,7 +140,7 @@ namespace ff
                 calcJumpDeltaTime = calcJumpDeltaTime - (m_jumpElapsedPeriod + dt - m_continouslyJumpMaxPeriod);
             }
             m_jumpElapsedPeriod += dt;
-            m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime);
+            m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime, m_jump1Value);
         }
 
 
@@ -119,9 +152,8 @@ namespace ff
                 calcJumpDeltaTime = calcJumpDeltaTime - (m_jump2ElapsedPeriod + dt - m_continouselyJump2MaxPeriod);
             }
             m_jump2ElapsedPeriod += dt;
-            m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime);
+            m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime,m_jump2Value);
         }
-
 
 
         private void SwitchState(JumpState nextState)
@@ -143,16 +175,24 @@ namespace ff
                     {
                         m_jumpElapsedPeriod = 0;
                         m_jump2ElapsedPeriod = 0;
+                        m_bHasReleaseJumpBtnInJump1 = false;
                     }
                     break;
                 case JumpState.Jump1:
                     {
                         m_jumpElapsedPeriod = 0;
+                        m_bHasReleaseJumpBtnInJump1 = false;
                     }
                     break;
                 case JumpState.Jump2:
                     {
+                        //Debug.LogWarning("[Enter Jump2]");
                         m_jump2ElapsedPeriod = 0;
+
+                        // Stop vertical velocity
+                        Vector2 newVelocity = m_rigidBody.velocity;
+                        newVelocity.y = 0;
+                        m_rigidBody.velocity = newVelocity;
                     }
                     break;
             }
@@ -163,7 +203,6 @@ namespace ff
         {
 
         }
-
     }
 
 }

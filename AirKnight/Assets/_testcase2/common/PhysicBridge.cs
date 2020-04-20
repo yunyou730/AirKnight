@@ -10,12 +10,12 @@ namespace ff
         // rigid body
         Rigidbody2D m_rigidBody = null;
 
-        [Header("Jump")]
-        [SerializeField]
-        private float m_continouslyJumpValue = 20;
+        //[Header("Jump")]
+        //[SerializeField]
+        //private float m_continouslyJumpValue = 120;
 
         [Header("Move")]
-        public float m_moveSpeedValue = 2;
+        public float m_moveSpeedValue = 3.5f;
 
         private Vector2 m_jumpForce;
         private Vector2 m_horizonMoveSpeed;
@@ -30,10 +30,10 @@ namespace ff
             return m_rigidBody.velocity.y;
         }
 
-        public void PerformContinouslyJump(float dt)
+        public void PerformContinouslyJump(float dt,float continouslyJumpValue)
         {
             m_jumpForce.x = 0;
-            m_jumpForce.y = m_continouslyJumpValue * dt;
+            m_jumpForce.y = continouslyJumpValue * dt;
             m_rigidBody.AddForce(m_jumpForce, ForceMode2D.Impulse);
         }
         
