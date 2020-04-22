@@ -31,7 +31,10 @@ namespace ff
             m_strFPS.Clear();
             m_strFPS.Append("FPS:");
             m_strFPS.Append(fps.ToString());
-            m_fpsLabel.text = m_strFPS.ToString();
+            if (m_fpsLabel)
+            {
+                m_fpsLabel.text = m_strFPS.ToString();
+            }
         }
 
         public void SetFPS()
