@@ -33,6 +33,15 @@ namespace ff
             {
                 slash.GetComponent<SlashEnvDetector>().InitWithOwner(m_controller.gameObject);
             }
+            if (slash.GetComponent<CanBlockAttack>() != null)
+            {
+                CanBlockAttack cba = slash.GetComponent<CanBlockAttack>();
+                CanBeHit cbh = m_controller.GetComponent<CanBeHit>();
+                if (cbh != null)
+                {
+                    cba.SetOwner(cbh);
+                }
+            }
 
             // locate position
             m_slashPos = m_controller.transform.position;
