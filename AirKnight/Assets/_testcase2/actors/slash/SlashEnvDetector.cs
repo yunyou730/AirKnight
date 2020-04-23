@@ -57,13 +57,22 @@ namespace ff
             
         }
 
+        /*
+            攻击判定时，
+            看是否同时接触了对方本体 ，以及对方的刀光
+            如果同时接触了对方本体 和 刀光， 则认为 此次攻击是“拼刀”,
+            不对对方本体造成伤害
+        */
         public void OnJudgeHurtFrame()
         {
             // key: victim object id, value: victim CanBeHit component
             Dictionary<int, CanBeHit> hurtMap = new Dictionary<int, CanBeHit>();
-
+            
             // key: be blocked victim id, value: block attack object CanBlockAttack component
             Dictionary<int, CanBlockAttack> blockMap = new Dictionary<int, CanBlockAttack>();
+
+            // The first block attack object, determine which direction owner shall be bounced
+            CanBlockAttack  firstBlockAttack = null;
             
             foreach (GameObject other in m_hitList)
             {
@@ -71,13 +80,20 @@ namespace ff
                 if(cbh != null)
                 {
                     hurtMap.Add(other.GetInstanceID(), cbh);
+                    //DoLog("OnJudgeHurtFrame [hurtMap] " + other.GetInstanceID());
                 }
 
                 CanBlockAttack cba = other.GetComponent<CanBlockAttack>();
                 if (cba != null && cba.GetOwner() != null)
                 {
                     CanBeHit owner = cba.GetOwner();
-                    blockMap.Add(owner.GetInstanceID(),cba);
+                    int goInstanceId = owner.gameObject.GetInstanceID();
+                    blockMap.Add(goInstanceId, cba);
+                }
+
+                if(cba != null && firstBlockAttack == null)
+                {
+                    firstBlockAttack = cba;
                 }
             }
 
@@ -85,12 +101,17 @@ namespace ff
             {
                 if (blockMap.ContainsKey(otherId))
                 {
-                    OnBlocked();
+                    GameObject other = blockMap[otherId].gameObject;
+                    OnBlocked(other);
                 }
                 else
                 {
                     DoHurtOther(hurtMap[otherId].gameObject);
                 }
+            }
+            if(firstBlockAttack != null)
+            {
+                OnBounced(firstBlockAttack.gameObject);
             }
         }
 
@@ -99,7 +120,7 @@ namespace ff
             CanBeBounceAway canBeBounceAway = m_owner.GetComponent<CanBeBounceAway>();
             if (canBeBounceAway != null)
             {
-                canBeBounceAway.DoBounce(gameObject);
+                canBeBounceAway.OnBeBounced(gameObject);
             }
         }
 
@@ -112,11 +133,14 @@ namespace ff
             }
         }
 
-        private void OnBlocked()
+        private void OnBlocked(GameObject other)
         {
-            Debug.LogWarning("[OnBlocked] ---- ");
+            
         }
 
+        private void OnBounced(GameObject other)
+        {
+            DoBounceOwner(other);
+        }
     }
-
 }

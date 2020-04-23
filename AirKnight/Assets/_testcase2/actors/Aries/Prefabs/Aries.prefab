@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 7256543413302880755}
   - component: {fileID: 4892753318002672685}
   - component: {fileID: 4892753318002672684}
-  - component: {fileID: 443082290}
   - component: {fileID: 685253348}
   m_Layer: 9
   m_Name: Aries
@@ -216,19 +215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_moveSpeedValue: 3.5
---- !u!114 &443082290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4892753318002672693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0d43eacd8dc4a84bf19d0bebc09df6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_bounceAwayForce: 25
 --- !u!114 &685253348
 MonoBehaviour:
   m_ObjectHideFlags: 0

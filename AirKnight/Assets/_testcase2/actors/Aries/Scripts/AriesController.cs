@@ -13,9 +13,12 @@ namespace ff
     public class AriesController : MonoBehaviour
     {
         Animator m_animator = null;
-        AriesAnimBridge m_animBridge = null;
-        AriesJump m_jump = null;
-        AriesDash m_dash = null;
+        ff.AriesAnimBridge m_animBridge = null;
+        ff.AriesJump m_jump = null;
+        ff.AriesDash m_dash = null;
+        ff.AriesBeHit m_beHit = null;
+        ff.AriesBeBounceAway m_bounceAway = null;
+        
         
         public ff.InputAxe m_horizontalAxe = null;
         public ff.InputAxe m_verticalAxe = null;
@@ -50,9 +53,9 @@ namespace ff
             m_spriteRenderer = GetComponent<SpriteRenderer>();
             m_jump = gameObject.AddComponent<ff.AriesJump>();
             m_dash = gameObject.AddComponent<ff.AriesDash>();
-            gameObject.AddComponent<ff.AriesBeHit>();
+            m_beHit = gameObject.AddComponent<ff.AriesBeHit>();
+            m_bounceAway = gameObject.AddComponent<ff.AriesBeBounceAway>();
 
-            
             string ctrlSourcePrefix = "1";
             if (m_ctrlSource == PlayerCtrlSource.PCS_2P)
             {
@@ -73,13 +76,12 @@ namespace ff
 
         void Update()
         {
+            // @miao @todo
+            
             float dt = Time.deltaTime;
             CollectInput(dt);
             UpdateStateFlag();
-
-            // horizon move
             m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
-
         }
 
         private void FixedUpdate()
@@ -158,17 +160,6 @@ namespace ff
                 m_spriteRenderer.flipX = m_faceDir == FaceDir.LEFT ? false : true;
             }
         }
-    
-        //private void UpdateJump(float dt)
-        //{
-        //    float calcJumpDeltaTime = dt;
-        //    if (m_jumpElapsedPeriod + dt >= m_continouslyJumpMaxPeriod)
-        //    {
-        //        calcJumpDeltaTime = calcJumpDeltaTime - (m_jumpElapsedPeriod + dt - m_continouslyJumpMaxPeriod);
-        //    }
-        //    m_jumpElapsedPeriod += dt;
-        //    m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime);
-        //}
 
         public Vector3 GetFront()
         {
