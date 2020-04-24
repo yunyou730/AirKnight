@@ -22,11 +22,11 @@ namespace ff
         private Rigidbody2D m_rigidBody = null;
     
         [SerializeField]
-        private float m_continouslyJumpMaxPeriod = 0.2f;
+        private float m_continouslyJumpMaxPeriod = 0.18f;
         private float m_jumpElapsedPeriod = 0.0f;
 
         [SerializeField]
-        private float m_continouselyJump2MaxPeriod = 0.2f;
+        private float m_continouselyJump2MaxPeriod = 0.18f;
         private float m_jump2ElapsedPeriod = 0.0f;
 
         [SerializeField]
@@ -34,9 +34,9 @@ namespace ff
 
 
         [SerializeField]
-        private float m_jump1Value = 120;
+        private float m_jump1Value = 110;
         [SerializeField]
-        private float m_jump2Value = 120;
+        private float m_jump2Value = 110;
 
 
         bool m_bHasReleaseJumpBtnInJump1 = false;

@@ -12,6 +12,7 @@ namespace ff
         private ff.AriesAnimBridge m_animBridge = null;
         private Animator m_animator = null;
         private AriesController m_ctrl = null;
+        private ff.EnvironmentDetector m_envDetector = null;
 
         private bool m_bPlayingHit = false;
 
@@ -36,6 +37,7 @@ namespace ff
             m_animBridge = GetComponent<ff.AriesAnimBridge>();
             m_animator = GetComponent<Animator>();
             m_ctrl = GetComponent<AriesController>();
+            m_envDetector = GetComponent<EnvironmentDetector>();
         }
 
         private void FixedUpdate()
@@ -44,18 +46,13 @@ namespace ff
             {
                 m_rigidBody.velocity = m_bounceVelocity;
             }
+            else if(m_envDetector.isOnGround && !m_ctrl.enabled )
+            {
+                m_ctrl.enabled = true;
+            }
         }
 
 
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            TryTerminateHurtProcess(collision);
-        }
-
-        private void OnCollisionStay2D(Collision2D collision)
-        {
-            TryTerminateHurtProcess(collision);
-        }
 
 
         public override void OnBeHit(GameObject caster)
@@ -97,7 +94,7 @@ namespace ff
 
         private void DoEndHurt()
         {
-            m_ctrl.enabled = true;
+            // m_ctrl.enabled = true;
 
             // recover anim
             m_animator.SetTrigger(m_animBridge.hurtRecoverTrigger);
@@ -129,6 +126,17 @@ namespace ff
                                     new Vector2(1, m_angleFactor) :
                                     new Vector2(-1, m_angleFactor);
             return dir.normalized;
+        }
+
+        // 撞到障碍物时， 停掉 受伤 流程 
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            TryTerminateHurtProcess(collision);
+        }
+
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            TryTerminateHurtProcess(collision);
         }
 
         private void TryTerminateHurtProcess(Collision2D collision)
