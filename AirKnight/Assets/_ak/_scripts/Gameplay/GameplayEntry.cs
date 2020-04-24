@@ -6,7 +6,7 @@ using System.Text;
 namespace ff
 {
 
-    public class GameEntry : MonoBehaviour
+    public class GameplayEntry : MonoBehaviour
     {
         public Text m_fpsLabel = null;
         StringBuilder m_strFPS = new StringBuilder();
