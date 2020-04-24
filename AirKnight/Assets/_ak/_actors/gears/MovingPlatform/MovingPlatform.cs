@@ -55,11 +55,4 @@ public class MovingPlatform : MonoBehaviour
                 break;
         }
     }
-
-
-    void OnCollisionEnter2D(Collision2D collison)
-    {
-        Debug.Log("111");
-    }
-
 }
