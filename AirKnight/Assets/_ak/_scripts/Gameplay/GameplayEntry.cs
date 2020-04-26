@@ -16,6 +16,7 @@ namespace ff
         private void Awake()
         {
             Physics2D.queriesStartInColliders = false;
+            EntityManager.GetInstance();
         }
 
         public void Update()
@@ -24,6 +25,10 @@ namespace ff
             m_timeMachine.Update();
         }
 
+        void Destroy()
+        {
+            EntityManager.CleanUp();
+        }
 
         private void RefreshFPS(float dt)
         {
