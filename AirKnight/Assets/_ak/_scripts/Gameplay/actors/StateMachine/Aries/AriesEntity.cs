@@ -6,7 +6,10 @@ namespace ff
 {
     public class AriesEntity : Entity
     {
-        
+        public AriesEntity()
+        { 
+            
+        }
     }
 
 }
