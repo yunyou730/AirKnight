@@ -29,7 +29,8 @@ namespace ff
 
         public override void Update(AriesEntity entity,float dt)
         {
-            
+            AriesController ctrl = entity.GetAgent().GetComponent<AriesController>();
+            ctrl.UpdateHorizontalMove();
         }
 
         public override void FixedUpdate(AriesEntity entity, float dt)

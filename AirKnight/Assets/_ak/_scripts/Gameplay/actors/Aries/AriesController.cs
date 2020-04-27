@@ -79,13 +79,8 @@ namespace ff
             float dt = Time.deltaTime;
             CollectInput(dt);
             UpdateStateFlag();
-            m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
+            //m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
         }
-
-        // private void FixedUpdate()
-        // {
-        //     float dt = Time.fixedDeltaTime;
-        // }
 
         private void CollectInput(float dt)
         {
@@ -94,8 +89,7 @@ namespace ff
             m_jumpButton.Update(dt);
             m_dashButton.Update(dt);
 
-            UpdateHorizontalMove();
-            
+
 
             // attack
             m_attackButton.Update(dt);
@@ -145,6 +139,9 @@ namespace ff
             {
                 SetFace(FaceDir.LEFT);
             }
+
+            // do move distance
+            m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
         }
 
 

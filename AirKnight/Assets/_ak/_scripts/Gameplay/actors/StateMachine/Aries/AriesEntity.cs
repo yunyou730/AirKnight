@@ -6,12 +6,14 @@ namespace ff
 {
     public class AriesEntity : Entity
     {
-        StateMachine<AriesEntity>   m_fsm = new StateMachine<AriesEntity>();
+        StateMachine<AriesEntity>   m_fsm = null;
 
         AriesStateAgent m_agent = null;
 
         public AriesEntity()
         { 
+            m_fsm = new StateMachine<AriesEntity>();
+            m_fsm.SetOwner(this);
             m_fsm.SetCurrenState(AriesStateIdle.Instance());
         }
 
@@ -28,12 +30,12 @@ namespace ff
 
         public void Update(float dt)
         {
-
+            m_fsm.Update(dt);
         }
 
         public void FixedUpdate(float dt)
         {
-            
+            m_fsm.FixedUpdate(dt);
         }
     }
 

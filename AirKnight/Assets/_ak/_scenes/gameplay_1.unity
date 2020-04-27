@@ -481,7 +481,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1317,6 +1317,24 @@ PolygonCollider2D:
       - {x: -9.257926, y: -0.5}
       - {x: -9.5, y: -0.5}
       - {x: -10.499998, y: -0.5}
+--- !u!1 &1308603141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4892753318002672693, guid: d9a7981efb4f44f299605a2bdd96f196,
+    type: 3}
+  m_PrefabInstance: {fileID: 991716712}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1308603142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308603141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ae75307dc774dd29ad4cd083edcd26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1415409620 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6722800641715344612, guid: c0ae227eed18b4501a56523edbe1fc09,

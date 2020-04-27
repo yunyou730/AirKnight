@@ -12,7 +12,18 @@ namespace ff
         void Awake()
         {
             m_entity = EntityManager.GetInstance().CreateEntity<AriesEntity>();
+            m_entity.SetAgent(this);
             m_entityId = m_entity.GetID();
+        }
+
+        void Update()
+        {
+            m_entity.Update(Time.deltaTime);
+        }
+
+        void FixedUpdate()
+        {
+            m_entity.FixedUpdate(Time.fixedDeltaTime);
         }
 
     }

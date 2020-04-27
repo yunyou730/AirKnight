@@ -17,9 +17,28 @@ namespace ff
             m_owner = entity;
         }
 
-        public void Execute()
+        public void Update(float dt)
         { 
-            
+            if(m_globalState != null)
+            {
+                m_globalState.Update(m_owner,dt);
+            }
+            if(m_currentState != null)
+            {
+                m_currentState.Update(m_owner,dt);
+            }
+        }
+
+        public void FixedUpdate(float dt)
+        {
+            if(m_globalState != null)
+            {
+                m_globalState.FixedUpdate(m_owner,dt);
+            }
+            if(m_currentState != null)
+            {
+                m_currentState.FixedUpdate(m_owner,dt);
+            }
         }
 
         public void FlipState()
