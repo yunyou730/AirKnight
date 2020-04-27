@@ -76,18 +76,16 @@ namespace ff
 
         void Update()
         {
-            // @miao @todo
-            
             float dt = Time.deltaTime;
             CollectInput(dt);
             UpdateStateFlag();
             m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
         }
 
-        private void FixedUpdate()
-        {
-            float dt = Time.fixedDeltaTime;
-        }
+        // private void FixedUpdate()
+        // {
+        //     float dt = Time.fixedDeltaTime;
+        // }
 
         private void CollectInput(float dt)
         {
@@ -96,20 +94,7 @@ namespace ff
             m_jumpButton.Update(dt);
             m_dashButton.Update(dt);
 
-            // horizon move
-            m_animator.SetFloat(m_animBridge.horizonAxeHoldTime, m_horizontalAxe.m_holdDuration);
-            m_animator.SetBool(m_animBridge.isHorizonAxeHold,m_horizontalAxe.IsHolding());
-            
-
-            // face direction
-            if (m_horizontalAxe.GetValue() > 0 && m_faceDir != FaceDir.RIGHT)
-            {
-                SetFace(FaceDir.RIGHT);
-            }
-            else if (m_horizontalAxe.GetValue() < 0 && m_faceDir != FaceDir.LEFT)
-            {
-                SetFace(FaceDir.LEFT);
-            }
+            UpdateHorizontalMove();
             
 
             // attack
@@ -140,6 +125,25 @@ namespace ff
             if (m_dashButton.IsPress())
             {
                 m_dash.StartDash();
+            }
+        }
+
+
+        public void UpdateHorizontalMove()
+        {
+            // horizon move
+            m_animator.SetFloat(m_animBridge.horizonAxeHoldTime, m_horizontalAxe.m_holdDuration);
+            m_animator.SetBool(m_animBridge.isHorizonAxeHold,m_horizontalAxe.IsHolding());
+            
+
+            // face direction
+            if (m_horizontalAxe.GetValue() > 0 && m_faceDir != FaceDir.RIGHT)
+            {
+                SetFace(FaceDir.RIGHT);
+            }
+            else if (m_horizontalAxe.GetValue() < 0 && m_faceDir != FaceDir.LEFT)
+            {
+                SetFace(FaceDir.LEFT);
             }
         }
 

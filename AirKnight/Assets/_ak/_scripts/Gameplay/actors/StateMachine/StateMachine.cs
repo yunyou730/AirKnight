@@ -26,6 +26,16 @@ namespace ff
         {
         }
 
+        public void SetCurrenState(BaseState<T> state)
+        {
+            m_currentState = state;
+        }
+
+        public void SetGlobalState(BaseState<T> state)
+        {
+            m_globalState = state;
+        }
+
         public void ChangeState(BaseState<T> nextState)
         {
             if (m_currentState != null)
