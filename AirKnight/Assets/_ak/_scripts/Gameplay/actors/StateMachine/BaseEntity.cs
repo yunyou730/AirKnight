@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace ff
 {
-    public class Entity
+    public class BaseEntity
     {
         private static int s_idCounter = 0;
         int m_id = 0;
 
-        public Entity()
+        public BaseEntity()
         {
             m_id = ++s_idCounter;
         }
@@ -17,6 +17,11 @@ namespace ff
         public int GetID()
         {
             return m_id;
+        }
+
+        public virtual void HandleMessage()
+        { 
+            
         }
     }
 }

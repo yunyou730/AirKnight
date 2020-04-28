@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ff
 {
-    public class StateMachine<T> where T:Entity
+    public class StateMachine<T> where T:BaseEntity
     {
         private T m_owner = null;
 
@@ -43,6 +43,10 @@ namespace ff
 
         public void FlipState()
         {
+            if (m_prevState != null)
+            {
+                ChangeState(m_prevState);
+            }
         }
 
         public void SetCurrenState(BaseState<T> state)
@@ -64,6 +68,19 @@ namespace ff
             }
             m_currentState = nextState;
             m_currentState.OnEnter(m_owner);
+        }
+
+        public bool HandleMessage(Telegram msg)
+        {
+            if (m_currentState != null && m_currentState.HandleMessage(msg))
+            {
+                return true;
+            }
+            if (m_globalState != null && m_globalState.HandleMessage(msg))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

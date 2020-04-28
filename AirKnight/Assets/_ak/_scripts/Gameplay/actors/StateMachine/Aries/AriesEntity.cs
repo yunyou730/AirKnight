@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ff
 {
-    public class AriesEntity : Entity
+    public class AriesEntity : BaseEntity
     {
         StateMachine<AriesEntity>   m_fsm = null;
 
@@ -36,6 +36,11 @@ namespace ff
         public void FixedUpdate(float dt)
         {
             m_fsm.FixedUpdate(dt);
+        }
+
+        public virtual bool HandleMessage(Telegram msg)
+        {
+            return false;
         }
     }
 

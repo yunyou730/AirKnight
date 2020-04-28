@@ -7,7 +7,7 @@ namespace ff
     public class EntityManager
     {
         private static EntityManager s_instance = null;
-        private Dictionary<int,Entity>  m_entityMap = new Dictionary<int, Entity>();
+        private Dictionary<int,BaseEntity>  m_entityMap = new Dictionary<int, BaseEntity>();
 
         public static EntityManager GetInstance()
         {
@@ -30,7 +30,7 @@ namespace ff
         {
         }
 
-        public T CreateEntity<T>() where T:Entity,new()
+        public T CreateEntity<T>() where T: BaseEntity, new()
         {
             T t = new T();
             m_entityMap.Add(t.GetID(),t);
@@ -42,7 +42,7 @@ namespace ff
             m_entityMap.Remove(entityId);
         }
 
-        public Entity GetEntity(int entityId)
+        public BaseEntity GetEntity(int entityId)
         {
             if(m_entityMap.ContainsKey(entityId))
             {

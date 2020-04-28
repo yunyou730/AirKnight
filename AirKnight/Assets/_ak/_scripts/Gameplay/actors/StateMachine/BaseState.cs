@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ff
 {
-    public class BaseState<T> where T : Entity
+    public class BaseState<T> where T : BaseEntity
     {
         public virtual void OnEnter(T entity)
         {
@@ -16,11 +16,6 @@ namespace ff
             
         }
 
-        // public virtual void OnExecute(T entity)
-        // {
-
-        // }
-
         public virtual void Update(T entity,float dt)
         {
 
@@ -31,6 +26,9 @@ namespace ff
             
         }
 
-
+        public virtual bool HandleMessage(Telegram msg)
+        {
+            return false;
+        }
     }
 }
