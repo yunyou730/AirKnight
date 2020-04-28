@@ -19,9 +19,9 @@ namespace ff
             return m_id;
         }
 
-        public virtual void HandleMessage()
+        public virtual bool HandleMessage(Telegram msg)
         { 
-            
+            return false;
         }
     }
 }

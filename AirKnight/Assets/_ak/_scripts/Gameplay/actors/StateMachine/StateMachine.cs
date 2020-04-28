@@ -82,5 +82,24 @@ namespace ff
             }
             return false;
         }
+
+
+        public string GetCurrentStateName()
+        {
+            if(m_currentState != null)
+            {
+                return m_currentState.GetType().Name;
+            }
+            return "[None]";
+        }
+
+        public string GetGlobalStateName()
+        {
+            if(m_globalState != null)
+            {
+                return m_globalState.GetType().Name;
+            }            
+            return "[None]";
+        }
     }
 }

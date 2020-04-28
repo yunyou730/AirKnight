@@ -25,7 +25,10 @@ namespace ff
         private void Discharge(Telegram msg)
         {
             BaseEntity entity = EntityManager.GetInstance().GetEntity(msg.m_receiver);
-
+            if(entity !=  null)
+            {
+                entity.HandleMessage(msg);
+            }
         }
     }
 

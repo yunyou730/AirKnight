@@ -6,7 +6,7 @@ namespace ff
 {
     public class AriesEntity : BaseEntity
     {
-        StateMachine<AriesEntity>   m_fsm = null;
+        private StateMachine<AriesEntity>   m_fsm = null;
 
         AriesStateAgent m_agent = null;
 
@@ -38,9 +38,15 @@ namespace ff
             m_fsm.FixedUpdate(dt);
         }
 
-        public virtual bool HandleMessage(Telegram msg)
+        public override bool HandleMessage(Telegram msg)
         {
-            return false;
+            return m_fsm.HandleMessage(msg);
+        }
+
+
+        public StateMachine<AriesEntity> GetFSM()
+        {
+            return m_fsm;
         }
     }
 

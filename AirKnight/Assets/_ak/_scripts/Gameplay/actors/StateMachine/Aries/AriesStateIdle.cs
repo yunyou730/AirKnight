@@ -31,13 +31,19 @@ namespace ff
         {
             AriesController ctrl = entity.GetAgent().GetComponent<AriesController>();
             ctrl.UpdateHorizontalMove();
+            //if (ctrl.m_jumpButton.IsPress() || ctrl.m_jumpButton.IsHold())
+            if (ctrl.m_jumpButton.IsPress())
+            {
+                AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
+                jumpComp.UpdateJump(dt);
+                entity.GetFSM().ChangeState(AriesStateJump1.Instance());
+            }
         }
 
         public override void FixedUpdate(AriesEntity entity, float dt)
         {
 
         }
-
     }
 
 }

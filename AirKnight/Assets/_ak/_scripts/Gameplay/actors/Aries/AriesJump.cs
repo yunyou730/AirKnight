@@ -22,11 +22,11 @@ namespace ff
         private Rigidbody2D m_rigidBody = null;
     
         [SerializeField]
-        private float m_continouslyJumpMaxPeriod = 0.18f;
+        public float m_continouslyJumpMaxPeriod = 0.18f;
         private float m_jumpElapsedPeriod = 0.0f;
 
         [SerializeField]
-        private float m_continouselyJump2MaxPeriod = 0.18f;
+        public float m_continouselyJump2MaxPeriod = 0.18f;
         private float m_jump2ElapsedPeriod = 0.0f;
 
         [SerializeField]
@@ -34,15 +34,40 @@ namespace ff
 
 
         [SerializeField]
-        private float m_jump1Value = 110;
+        public float m_jump1Value = 110;
         [SerializeField]
-        private float m_jump2Value = 110;
+        public float m_jump2Value = 110;
 
 
         bool m_bHasReleaseJumpBtnInJump1 = false;
         //bool m_bHasReleaseJumpBtnInJump2 = false;
 
+        public bool m_bHasRaised = false;
 
+        public void ResetForJump1()
+        {
+            m_jumpElapsedPeriod = 0;
+            m_bHasReleaseJumpBtnInJump1 = false;
+            m_bHasRaised = false;
+        }
+
+        public void JumpBtnReleasedForJump1()
+        {
+            m_bHasReleaseJumpBtnInJump1 = true;
+        }
+
+        public float GetLeftAvailableHoldDurationForJump1()
+        {
+            if(m_jumpElapsedPeriod >= m_continouslyJumpMaxPeriod)
+            {
+                return 0;
+            }
+            return m_continouslyJumpMaxPeriod - m_jumpElapsedPeriod;
+        }
+        
+        /// --------------------------------------------
+
+        
         private void Awake()
         {
             m_ctrl = GetComponent<ff.AriesController>();
@@ -54,17 +79,17 @@ namespace ff
         // Start is called before the first frame update
         void Start()
         {
-            if (m_envDetector.isOnGround)
-            {
-                SwitchState(JumpState.None);
-            }
-            else
-            {
-                SwitchState(JumpState.Jump1);
-            }
+            // if (m_envDetector.isOnGround)
+            // {
+            //     SwitchState(JumpState.None);
+            // }
+            // else
+            // {
+            //     SwitchState(JumpState.Jump1);
+            // }
         }
 
-        // Update is called once per frame
+        /*
         void Update()
         {
             float dt = Time.deltaTime;
@@ -131,8 +156,9 @@ namespace ff
                     break;
             }
         }
+        */
 
-        private void UpdateJump(float dt)
+        public void UpdateJump(float dt)
         {
             float calcJumpDeltaTime = dt;
             if (m_jumpElapsedPeriod + dt >= m_continouslyJumpMaxPeriod)
@@ -155,7 +181,7 @@ namespace ff
             m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime,m_jump2Value);
         }
 
-
+        /*
         private void SwitchState(JumpState nextState)
         {
             if (m_jumpState != nextState)
@@ -165,44 +191,44 @@ namespace ff
                 OnEnterState(m_jumpState);
             }
         }
+        */
+
+        // private void OnEnterState(JumpState state)
+        // {
+        //     switch (state)
+        //     {
+        //         case JumpState.None:
+        //             {
+        //                 m_jumpElapsedPeriod = 0;
+        //                 m_jump2ElapsedPeriod = 0;
+        //                 m_bHasReleaseJumpBtnInJump1 = false;
+        //             }
+        //             break;
+        //         case JumpState.Jump1:
+        //             {
+        //                 m_jumpElapsedPeriod = 0;
+        //                 m_bHasReleaseJumpBtnInJump1 = false;
+        //             }
+        //             break;
+        //         case JumpState.Jump2:
+        //             {
+        //                 //Debug.LogWarning("[Enter Jump2]");
+        //                 m_jump2ElapsedPeriod = 0;
+
+        //                 // Stop vertical velocity
+        //                 Vector2 newVelocity = m_rigidBody.velocity;
+        //                 newVelocity.y = 0;
+        //                 m_rigidBody.velocity = newVelocity;
+        //             }
+        //             break;
+        //     }
+        // }
 
 
-        private void OnEnterState(JumpState state)
-        {
-            switch (state)
-            {
-                case JumpState.None:
-                    {
-                        m_jumpElapsedPeriod = 0;
-                        m_jump2ElapsedPeriod = 0;
-                        m_bHasReleaseJumpBtnInJump1 = false;
-                    }
-                    break;
-                case JumpState.Jump1:
-                    {
-                        m_jumpElapsedPeriod = 0;
-                        m_bHasReleaseJumpBtnInJump1 = false;
-                    }
-                    break;
-                case JumpState.Jump2:
-                    {
-                        //Debug.LogWarning("[Enter Jump2]");
-                        m_jump2ElapsedPeriod = 0;
+        // private void OnExitState(JumpState state)
+        // {
 
-                        // Stop vertical velocity
-                        Vector2 newVelocity = m_rigidBody.velocity;
-                        newVelocity.y = 0;
-                        m_rigidBody.velocity = newVelocity;
-                    }
-                    break;
-            }
-        }
-
-
-        private void OnExitState(JumpState state)
-        {
-
-        }
+        // }
 
     }
 

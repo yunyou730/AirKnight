@@ -44,6 +44,10 @@ namespace ff
         // avoid new Vector3 each frame,declare one for re-use in each frame
         private Vector3 m_front;
 
+
+        // State Agent
+        private AriesStateAgent m_stateAgent = null;
+
         private void Awake()
         {
             m_animator = GetComponent<Animator>();
@@ -55,6 +59,9 @@ namespace ff
             m_dash = gameObject.AddComponent<ff.AriesDash>();
             m_beHit = gameObject.AddComponent<ff.AriesBeHit>();
             m_bounceAway = gameObject.AddComponent<ff.AriesBeBounceAway>();
+
+
+            m_stateAgent = GetComponent<AriesStateAgent>();
 
             string ctrlSourcePrefix = "1";
             if (m_ctrlSource == PlayerCtrlSource.PCS_2P)
@@ -79,7 +86,6 @@ namespace ff
             float dt = Time.deltaTime;
             CollectInput(dt);
             UpdateStateFlag();
-            //m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
         }
 
         private void CollectInput(float dt)
@@ -88,7 +94,10 @@ namespace ff
             m_verticalAxe.Update(dt);
             m_jumpButton.Update(dt);
             m_dashButton.Update(dt);
+            
+            ApplyVerticalInput();
 
+            // @miao @todo
 
 
             // attack
@@ -97,23 +106,6 @@ namespace ff
             {
                 m_animator.SetTrigger(m_animBridge.atkTrigger);
             }
-
-            // vertical direction
-            bool bUpHolding = false;
-            bool bDownHolding = false;
-            float verticalAxeValue = m_verticalAxe.GetValue();//Input.GetAxis("Vertical");
-            //Debug.Log("[vertical axe] " + verticalAxeValue);
-            if (verticalAxeValue > 0)
-            {
-                bUpHolding = true;
-            }
-            else if (verticalAxeValue < 0)
-            {
-                bDownHolding = true;
-            }
-            m_animator.SetBool(m_animBridge.isUpArrowHold,bUpHolding);
-            m_animator.SetBool(m_animBridge.isDownArrowHold,bDownHolding);
-
 
             // dash
             if (m_dashButton.IsPress())
@@ -143,6 +135,28 @@ namespace ff
             // do move distance
             m_phyBridge.PerformHorizonMove(m_horizontalAxe.GetValue());
         }
+
+        public void ApplyVerticalInput()
+        {
+            // vertical direction
+            bool bUpHolding = false;
+            bool bDownHolding = false;
+            float verticalAxeValue = m_verticalAxe.GetValue();//Input.GetAxis("Vertical");
+            //Debug.Log("[vertical axe] " + verticalAxeValue);
+            if (verticalAxeValue > 0)
+            {
+                bUpHolding = true;
+            }
+            else if (verticalAxeValue < 0)
+            {
+                bDownHolding = true;
+            }
+            m_animator.SetBool(m_animBridge.isUpArrowHold,bUpHolding);
+            m_animator.SetBool(m_animBridge.isDownArrowHold,bDownHolding);
+        }
+
+
+        
 
 
         private void UpdateStateFlag()

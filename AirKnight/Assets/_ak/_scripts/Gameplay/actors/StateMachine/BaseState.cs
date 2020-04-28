@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 namespace ff
 {
@@ -8,7 +9,8 @@ namespace ff
     {
         public virtual void OnEnter(T entity)
         {
-
+        // System.Reflection.TypeAttributes.m_name;
+            // GetType().Name;
         }
 
         public virtual void OnExit(T entity)
