@@ -9,12 +9,12 @@ namespace ff
     {
         public virtual void OnEnter(T entity)
         {
-            // Debug.Log("[BaseState:OnEnter]" + GetType().Name);
+            Debug.Log("[BaseState:OnEnter]" + GetType().Name);
         }
 
         public virtual void OnExit(T entity)
         {
-            // Debug.Log("[BaseState:OnExit]" + GetType().Name);
+            Debug.Log("[BaseState:OnExit]" + GetType().Name);
         }
 
         public virtual void Update(T entity,float dt)

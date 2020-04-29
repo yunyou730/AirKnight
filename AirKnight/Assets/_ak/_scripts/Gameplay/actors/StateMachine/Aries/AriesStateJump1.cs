@@ -20,15 +20,20 @@ namespace ff
         public override void OnEnter(AriesEntity entity)
         {
             base.OnEnter(entity);
+
             AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
             Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
+            EnvironmentDetector envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
+
             jumpComp.ResetForJump1();
             rigid.velocity = new Vector2(rigid.velocity.x,0);// give a min velocity of y
+
+            jumpComp.jumpPhase = AriesJump.Phase.Jump1;
         }
 
         public override void OnExit(AriesEntity entity)
         {
-            
+
         }
 
         public override void Update(AriesEntity entity,float dt)
@@ -41,12 +46,9 @@ namespace ff
             ctrl.UpdateHorizontalMove();
 
             Vector2 curVelocity = rigid.velocity;
-            if(jumpComp.HasRaised())
+            if(ctrl.m_jumpButton.IsPress())
             {
-                if(ctrl.m_jumpButton.IsPress())
-                {
-                    entity.GetFSM().ChangeState(AriesStateJump2.Instance());
-                }            
+                entity.GetFSM().ChangeState(AriesStateJump2.Instance());
             }
         }
 
@@ -59,36 +61,25 @@ namespace ff
 
             Vector2 curVelocity = rigid.velocity;
 
-            if(curVelocity.y > 0)
-            {
-                jumpComp.SetHasRaisedFlag();
-            }
-
             if (ctrl.m_jumpButton.IsRelease())
             {
-                jumpComp.JumpBtnReleasedForJump1();
+                jumpComp.JumpBtnReleased();
             }
             else
             {
-                if(curVelocity.y >= 0)
+                if(
+                    (ctrl.m_jumpButton.IsPress() || ctrl.m_jumpButton.IsHold())
+                    && jumpComp.GetLeftAvailableHoldDurationForJump1() > 0
+                )
                 {
-                    if(
-                        (ctrl.m_jumpButton.IsPress() || ctrl.m_jumpButton.IsHold())
-                        && jumpComp.GetLeftAvailableHoldDurationForJump1() > 0
-                    )
-                    {
-                        jumpComp.UpdateJump(dt);
-                    }
-                }
-            }   
-            if(jumpComp.HasRaised())
-            {
-                if(curVelocity.y <= 0 && envDector.isOnGround)
-                {
-                    entity.GetFSM().ChangeState(AriesStateIdle.Instance());
+                    jumpComp.UpdateJump(dt);
                 }
             }
-            
+
+            if(curVelocity.y < 0)
+            {
+                entity.GetFSM().ChangeState(AriesStateFall.Instance());
+            }
         }
     }
 

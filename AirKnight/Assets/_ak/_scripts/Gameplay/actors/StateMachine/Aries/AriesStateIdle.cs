@@ -34,15 +34,19 @@ namespace ff
             //if (ctrl.m_jumpButton.IsPress() || ctrl.m_jumpButton.IsHold())
             if (ctrl.m_jumpButton.IsPress())
             {
-                AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
-                jumpComp.UpdateJump(dt);
+                //AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
+                //jumpComp.UpdateJump(dt);
                 entity.GetFSM().ChangeState(AriesStateJump1.Instance());
             }
         }
 
         public override void FixedUpdate(AriesEntity entity, float dt)
         {
-
+            EnvironmentDetector envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
+            if(!envDetector.isOnGround)
+            {   
+                entity.GetFSM().ChangeState(AriesStateJump1.Instance());
+            }
         }
     }
 

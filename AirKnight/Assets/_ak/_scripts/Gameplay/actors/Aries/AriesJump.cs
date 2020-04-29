@@ -6,6 +6,15 @@ namespace ff
 {
     public class AriesJump : MonoBehaviour
     {
+        public enum Phase
+        {
+            None,
+            Jump1,
+            Jump2,
+        }
+
+        public Phase jumpPhase = Phase.None;
+
         private ff.AriesController m_ctrl = null;
         private ff.PhysicBridge m_phyBridge = null;
         private ff.EnvironmentDetector m_envDetector = null;
@@ -25,11 +34,7 @@ namespace ff
         [SerializeField]
         public float m_jump2Value = 110;
 
-
-        bool m_bHasReleaseJumpBtnInJump1 = false;
-
-        private bool m_bHasRaised = false;
-
+        bool m_bHasReleaseJumpBtn = false;
 
         private void Awake()
         {
@@ -42,13 +47,12 @@ namespace ff
         public void ResetForJump1()
         {
             m_jumpElapsedPeriod = 0;
-            m_bHasReleaseJumpBtnInJump1 = false;
-            m_bHasRaised = false;
+            m_bHasReleaseJumpBtn = false;
         }
 
-        public void JumpBtnReleasedForJump1()
+        public void JumpBtnReleased()
         {
-            m_bHasReleaseJumpBtnInJump1 = true;
+            m_bHasReleaseJumpBtn = true;
         }
 
         public float GetLeftAvailableHoldDurationForJump1()
@@ -64,9 +68,8 @@ namespace ff
         public void ResetForJump2()
         {
             m_jump2ElapsedPeriod = 0;
-            m_bHasRaised = false;
+            m_bHasReleaseJumpBtn = false;
         }
-
 
         public float GetLeftAvailableHoldDurationForJump2()
         {
@@ -102,16 +105,10 @@ namespace ff
             m_jump2ElapsedPeriod += dt;
             m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime,m_jump2Value);
         }
-        
 
-        public void SetHasRaisedFlag()
+        public bool HasJumpBtnReleased()
         {
-            m_bHasRaised = true;
-        }
-
-        public bool HasRaised()
-        {
-            return m_bHasRaised;
+            return m_bHasReleaseJumpBtn;
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 
 namespace ff
 {
@@ -11,11 +11,16 @@ namespace ff
         // ground checker
         public bool isOnGround = false;
         public LayerMask groundLayer;
-        public float groundCheckerLength = 0.3f;
-        public Vector2 groundCheckerBeginOffset;
-        private Vector2 groundCheckerFrom;
-        private Color groundCheckerLineColor = Color.green;
-        
+        // public float groundCheckerLength = 0.3f;
+        // public Vector2[] groundCheckerBeginOffset;
+        // private Color groundCheckerLineColor = Color.green;
+
+        public Collider2D m_collider = null;
+
+        void Awake()
+        {
+
+        }
 
         void Start()
         {
@@ -29,24 +34,33 @@ namespace ff
 
         void FixedUpdate()
         {
-            CheckGround();
+            // isOnGround = false;
+            // for(int idx = 0;idx < groundCheckerBeginOffset.Length;idx++)
+            // {
+            //     isOnGround = isOnGround || CheckGround(idx);
+            // }
+            isOnGround = CheckGround();
         }
         
-        public void CheckGround()
+        //public bool CheckGround(int index)
+        public bool CheckGround()
         {
-            isOnGround = false;
+            return m_collider.IsTouchingLayers(groundLayer);
 
-            groundCheckerFrom.x = transform.position.x + groundCheckerBeginOffset.x;
-            groundCheckerFrom.y = transform.position.y + groundCheckerBeginOffset.y;
-            RaycastHit2D hit = Physics2D.Raycast(groundCheckerFrom, -Vector2.up, groundCheckerLength, groundLayer);
+            // // isOnGround = false;
+            // bool bResult = false;
 
-            groundCheckerLineColor = Color.green;
-            if (hit.collider != null)
-            {
-                groundCheckerLineColor = Color.red;
-                isOnGround = true;
-            }
-            Debug.DrawRay(groundCheckerFrom, -Vector2.up * groundCheckerLength, groundCheckerLineColor);
+            // Vector2 groundCheckerFrom = new Vector2(transform.position.x + groundCheckerBeginOffset[index].x,transform.position.y + groundCheckerBeginOffset[index].y);
+            // RaycastHit2D hit = Physics2D.Raycast(groundCheckerFrom, -Vector2.up, groundCheckerLength, groundLayer);
+
+            // groundCheckerLineColor = Color.green;
+            // if (hit.collider != null)
+            // {
+            //     groundCheckerLineColor = Color.red;
+            //     bResult = true;
+            // }
+            // Debug.DrawRay(groundCheckerFrom, -Vector2.up * groundCheckerLength, groundCheckerLineColor);
+            // return bResult;
         }
     }
 }
