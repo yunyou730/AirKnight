@@ -41,7 +41,7 @@ namespace ff
             ctrl.UpdateHorizontalMove();
 
             Vector2 curVelocity = rigid.velocity;
-            if(jumpComp.m_bHasRaised)
+            if(jumpComp.HasRaised())
             {
                 if(ctrl.m_jumpButton.IsPress())
                 {
@@ -61,7 +61,7 @@ namespace ff
 
             if(curVelocity.y > 0)
             {
-                jumpComp.m_bHasRaised = true;
+                jumpComp.SetHasRaisedFlag();
             }
 
             if (ctrl.m_jumpButton.IsRelease())
@@ -81,17 +81,12 @@ namespace ff
                     }
                 }
             }   
-            if(jumpComp.m_bHasRaised)
+            if(jumpComp.HasRaised())
             {
                 if(curVelocity.y <= 0 && envDector.isOnGround)
                 {
                     entity.GetFSM().ChangeState(AriesStateIdle.Instance());
                 }
-                //if(curVelocity.y <= 0 && ctrl.m_jumpButton.IsPress())
-                // if(ctrl.m_jumpButton.IsPress())
-                // {
-                //     entity.GetFSM().ChangeState(AriesStateJump2.Instance());
-                // }            
             }
             
         }

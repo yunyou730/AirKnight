@@ -48,7 +48,7 @@ namespace ff
 
             if(curVelocity.y > 0)
             {
-                jumpComp.m_bHasRaised = true;
+                jumpComp.SetHasRaisedFlag();
             }
 
             if(
@@ -59,7 +59,7 @@ namespace ff
                 jumpComp.UpdateJump2(dt);
             }
             
-            if(jumpComp.m_bHasRaised)
+            if(jumpComp.HasRaised())
             {
                 // if(curVelocity.y <= 0 && envDector.isOnGround)
                 // {
