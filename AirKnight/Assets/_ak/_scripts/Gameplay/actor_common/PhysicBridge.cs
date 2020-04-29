@@ -10,10 +10,6 @@ namespace ff
         // rigid body
         Rigidbody2D m_rigidBody = null;
 
-        //[Header("Jump")]
-        //[SerializeField]
-        //private float m_continouslyJumpValue = 120;
-
         [Header("Move")]
         public float m_moveSpeedValue = 3.5f;
 

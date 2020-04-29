@@ -67,6 +67,25 @@ namespace ff
         
         /// --------------------------------------------
 
+
+
+        public void ResetForJump2()
+        {
+            m_jump2ElapsedPeriod = 0;
+            m_bHasRaised = false;
+        }
+
+
+        public float GetLeftAvailableHoldDurationForJump2()
+        {
+            if(m_jump2ElapsedPeriod >= m_continouselyJump2MaxPeriod)
+            {
+                return 0;
+            }
+            return m_continouselyJump2MaxPeriod - m_jump2ElapsedPeriod;
+        }
+        ///
+
         
         private void Awake()
         {
@@ -74,19 +93,6 @@ namespace ff
             m_phyBridge = GetComponent<ff.PhysicBridge>();
             m_envDetector = GetComponent<ff.EnvironmentDetector>();
             m_rigidBody = GetComponent<Rigidbody2D>();
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            // if (m_envDetector.isOnGround)
-            // {
-            //     SwitchState(JumpState.None);
-            // }
-            // else
-            // {
-            //     SwitchState(JumpState.Jump1);
-            // }
         }
 
         /*
@@ -170,7 +176,7 @@ namespace ff
         }
 
 
-        private void UpdateJump2(float dt)
+        public void UpdateJump2(float dt)
         {
             float calcJumpDeltaTime = dt;
             if (m_jump2ElapsedPeriod + dt >= m_continouselyJump2MaxPeriod)
@@ -181,17 +187,6 @@ namespace ff
             m_phyBridge.PerformContinouslyJump(calcJumpDeltaTime,m_jump2Value);
         }
 
-        /*
-        private void SwitchState(JumpState nextState)
-        {
-            if (m_jumpState != nextState)
-            {
-                OnExitState(m_jumpState);
-                m_jumpState = nextState;
-                OnEnterState(m_jumpState);
-            }
-        }
-        */
 
         // private void OnEnterState(JumpState state)
         // {
@@ -222,12 +217,6 @@ namespace ff
         //             }
         //             break;
         //     }
-        // }
-
-
-        // private void OnExitState(JumpState state)
-        // {
-
         // }
 
     }

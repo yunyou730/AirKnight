@@ -19,6 +19,7 @@ namespace ff
 
         public override void OnEnter(AriesEntity entity)
         {
+            base.OnEnter(entity);
             AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
             Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
             jumpComp.ResetForJump1();
@@ -33,7 +34,20 @@ namespace ff
         public override void Update(AriesEntity entity,float dt)
         {
             AriesController ctrl = entity.GetAgent().GetComponent<AriesController>();
+            AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
+            Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
+            EnvironmentDetector envDector = entity.GetAgent().GetComponent<EnvironmentDetector>();
+
             ctrl.UpdateHorizontalMove();
+
+            Vector2 curVelocity = rigid.velocity;
+            if(jumpComp.m_bHasRaised)
+            {
+                if(ctrl.m_jumpButton.IsPress())
+                {
+                    entity.GetFSM().ChangeState(AriesStateJump2.Instance());
+                }            
+            }
         }
 
         public override void FixedUpdate(AriesEntity entity, float dt)
@@ -42,8 +56,6 @@ namespace ff
             AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
             Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
             EnvironmentDetector envDector = entity.GetAgent().GetComponent<EnvironmentDetector>();
-
-
 
             Vector2 curVelocity = rigid.velocity;
 
@@ -69,21 +81,19 @@ namespace ff
                     }
                 }
             }   
-
-            // Debug.LogWarning("[JumpState:Update()][curVelocity.y] " + curVelocity.y);
             if(jumpComp.m_bHasRaised)
             {
                 if(curVelocity.y <= 0 && envDector.isOnGround)
                 {
                     entity.GetFSM().ChangeState(AriesStateIdle.Instance());
                 }
+                //if(curVelocity.y <= 0 && ctrl.m_jumpButton.IsPress())
+                // if(ctrl.m_jumpButton.IsPress())
+                // {
+                //     entity.GetFSM().ChangeState(AriesStateJump2.Instance());
+                // }            
             }
-        }
-
-
-        private void ApplyJump(float dt)
-        {
-
+            
         }
     }
 

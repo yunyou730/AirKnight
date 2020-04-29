@@ -19,12 +19,12 @@ namespace ff
 
         public override void OnEnter(AriesEntity entity)
         {
-
+            base.OnEnter(entity);
         }
 
         public override void OnExit(AriesEntity entity)
         {
-            
+            base.OnExit(entity);
         }
 
         public override void Update(AriesEntity entity,float dt)
