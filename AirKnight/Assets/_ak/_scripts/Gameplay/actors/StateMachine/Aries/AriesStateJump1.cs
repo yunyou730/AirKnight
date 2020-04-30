@@ -6,16 +6,6 @@ namespace ff
 {
     public class AriesStateJump1 : BaseState<AriesEntity>
     {
-        private static AriesStateJump1 s_instance = null;
-
-        public static AriesStateJump1 Instance()
-        {
-            if(s_instance == null)
-            {
-                s_instance = new AriesStateJump1();
-            }
-            return s_instance;
-        }
 
         public override void OnEnter(AriesEntity entity)
         {
@@ -48,7 +38,7 @@ namespace ff
             Vector2 curVelocity = rigid.velocity;
             if(ctrl.m_jumpButton.IsPress())
             {
-                entity.GetFSM().ChangeState(AriesStateJump2.Instance());
+                entity.ChangeState(AriesState.Jump2);
             }
         }
 
@@ -78,7 +68,7 @@ namespace ff
 
             if(curVelocity.y < 0)
             {
-                entity.GetFSM().ChangeState(AriesStateFall.Instance());
+                entity.ChangeState(AriesState.Fall);
             }
         }
     }

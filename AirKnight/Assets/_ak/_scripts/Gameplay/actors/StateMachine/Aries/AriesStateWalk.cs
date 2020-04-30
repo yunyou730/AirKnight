@@ -6,17 +6,6 @@ namespace ff
 {
     public class AriesStateWalk : BaseState<AriesEntity>
     {
-        private static AriesStateWalk s_instance = null;
-
-        public static AriesStateWalk Instance()
-        {
-            if (s_instance == null)
-            {
-                s_instance = new AriesStateWalk();
-            }
-            return s_instance;
-        }
-
         public override void Update(AriesEntity entity, float dt)
         {
             AriesController ctrl = entity.GetAgent().GetComponent<AriesController>();
@@ -25,11 +14,11 @@ namespace ff
 
             if (Mathf.Abs(rigid.velocity.x) == 0)
             {
-                entity.GetFSM().ChangeState(AriesStateIdle.Instance());
+                entity.ChangeState(AriesState.Idle);
             }
             if (ctrl.m_jumpButton.IsPress())
             {
-                entity.GetFSM().ChangeState(AriesStateJump1.Instance());
+                entity.ChangeState(AriesState.Jump1);
             }
         }
 
@@ -38,7 +27,7 @@ namespace ff
             EnvironmentDetector envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
             if (!envDetector.isOnGround)
             {
-                entity.GetFSM().ChangeState(AriesStateJump1.Instance());
+                entity.ChangeState(AriesState.Jump1);
             }
         }
     }
