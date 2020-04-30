@@ -72,11 +72,11 @@ namespace ff
 
         public bool HandleMessage(Telegram msg)
         {
-            if (m_currentState != null && m_currentState.HandleMessage(msg))
+            if (m_currentState != null && m_currentState.HandleMessage(m_owner,msg))
             {
                 return true;
             }
-            if (m_globalState != null && m_globalState.HandleMessage(msg))
+            if (m_globalState != null && m_globalState.HandleMessage(m_owner,msg))
             {
                 return true;
             }

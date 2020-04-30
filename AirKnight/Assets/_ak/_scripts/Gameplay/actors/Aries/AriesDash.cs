@@ -13,72 +13,65 @@ namespace ff
         ff.EnvironmentDetector m_envDetector = null;
 
         [SerializeField]
-        private float m_dashKeepTime = 0.3f;
+        public float m_dashKeepTime = 0.3f;
         [SerializeField]
-        private float m_dashSpeed = 20.0f;
+        public float m_dashSpeed = 20.0f;
 
-        float m_startGravityScale = 0.0f;
-        bool m_bDashing = false;
+        // float m_startGravityScale = 0.0f;
+        // bool m_bDashing = false;
 
-        private int m_dashCounter = 0;
+        // private int m_dashCounter = 0;
 
         private void Awake()
         {
-            m_rigid = GetComponent<Rigidbody2D>();
-            m_animator = GetComponent<Animator>();
-            m_animBridge = GetComponent<ff.AriesAnimBridge>();
-            m_ctrl = GetComponent<ff.AriesController>();
-            m_envDetector = GetComponent<ff.EnvironmentDetector>();
+            // m_rigid = GetComponent<Rigidbody2D>();
+            // m_animator = GetComponent<Animator>();
+            // m_animBridge = GetComponent<ff.AriesAnimBridge>();
+            // m_ctrl = GetComponent<ff.AriesController>();
+            // m_envDetector = GetComponent<ff.EnvironmentDetector>();
         }
 
-        public void StartDash()
-        {
-            if (!IsCanDash())
-                return;
+        // public void StartDash()
+        // {
+        //     m_startGravityScale = m_rigid.gravityScale;
+        //     m_rigid.gravityScale = 0.0f;
+        //     m_animator.SetTrigger(m_animBridge.dashTrigger);
+        //     StartCoroutine(StopDash());
+        // }
 
-            m_bDashing = true;
-            m_dashCounter++;
+        // private IEnumerator StopDash()
+        // {
+        //     yield return new WaitForSeconds(m_dashKeepTime);
+        //     DoStopDash();
+        // }
 
-            m_startGravityScale = m_rigid.gravityScale;
-            m_rigid.gravityScale = 0.0f;
-            m_animator.SetTrigger(m_animBridge.dashTrigger);
+        // private void DoStopDash()
+        // {
+        //     // m_bDashing = false;
+        //     m_rigid.gravityScale = m_startGravityScale;
+        //     m_animator.SetTrigger(m_animBridge.dashRecoverTrigger);
+        // }
 
-            StartCoroutine(StopDash());
-        }
+        // private void FixedUpdate()
+        // {
+            // if(m_bDashing)
+            // {
+            //     Vector3 dir = m_ctrl.GetFront();
+            //     m_rigid.velocity = dir * m_dashSpeed;
+            // }
 
-        private IEnumerator StopDash()
-        {
-            yield return new WaitForSeconds(m_dashKeepTime);
-            DoStopDash();
-        }
-
-        private void DoStopDash()
-        {
-            m_bDashing = false;
-            m_rigid.gravityScale = m_startGravityScale;
-            m_animator.SetTrigger(m_animBridge.dashRecoverTrigger);
-        }
-
-        private void FixedUpdate()
-        {
-            if(m_bDashing)
-            {
-                Vector3 dir = m_ctrl.GetFront();
-                m_rigid.velocity = dir * m_dashSpeed;
-            }
-
-            if (m_envDetector.isOnGround)
-            {
-                m_dashCounter = 0;
-            }
-        }
+            // if (m_envDetector.isOnGround)
+            // {
+            //     m_dashCounter = 0;
+            // }
+        // }
 
 
-        private bool IsCanDash()
-        {
-            if (m_bDashing)
-                return false;
-            return m_dashCounter == 0;
-        }
+        // private bool IsCanDash()
+        // {
+        //     if (m_bDashing)
+        //         return false;
+        //     return m_dashCounter == 0;
+        // }
     }
 }

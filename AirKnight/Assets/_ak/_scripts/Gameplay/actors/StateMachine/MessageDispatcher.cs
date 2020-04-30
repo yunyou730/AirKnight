@@ -19,7 +19,7 @@ namespace ff
         public void Dispatch(int sender,int receiver,MessageType msgType,Object extraInfo)
         {
             Telegram msg = new Telegram(sender,receiver,msgType,extraInfo);
-
+            Discharge(msg);
         }
 
         private void Discharge(Telegram msg)
@@ -35,10 +35,11 @@ namespace ff
 
     public enum MessageType
     {
-        MT_LandGround,
-        MT_AwayFromGround,
-        MT_TryAttack,
-        MT_TryJump,
+        // MT_TryAttack,
+        // MT_TryJump,
+
+        MT_TryDash,
+        MT_BreakDash,
     }
 
     public class Telegram

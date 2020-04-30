@@ -12,6 +12,7 @@ namespace ff
         Jump1,
         Jump2,
         Fall,
+        Dash,
 
         None,
     }
@@ -30,6 +31,7 @@ namespace ff
             m_stateMap.Add(AriesState.Jump1, new AriesStateJump1());
             m_stateMap.Add(AriesState.Jump2, new AriesStateJump2());
             m_stateMap.Add(AriesState.Fall, new AriesStateFall());
+            m_stateMap.Add(AriesState.Dash, new AriesStateDash());
 
             m_fsm = new StateMachine<AriesEntity>();
             m_fsm.SetOwner(this);

@@ -31,6 +31,22 @@ namespace ff
             }
         }
 
+
+        public override bool HandleMessage(AriesEntity entity,Telegram msg)
+        {
+            bool bHandled = true;
+            switch(msg.m_msgType)
+            {
+                case MessageType.MT_TryDash:
+                    entity.ChangeState(AriesState.Dash);
+                    break;
+                default:
+                    bHandled = false;
+                    break;
+            }
+            return bHandled;
+        }      
+        
         public override void FixedUpdate(AriesEntity entity, float dt)
         {
             Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();

@@ -27,7 +27,7 @@ namespace ff
             
         }
 
-        public virtual bool HandleMessage(Telegram msg)
+        public virtual bool HandleMessage(T entity,Telegram msg)
         {
             return false;
         }

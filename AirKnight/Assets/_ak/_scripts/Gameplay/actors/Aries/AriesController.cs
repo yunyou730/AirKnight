@@ -18,6 +18,7 @@ namespace ff
         ff.AriesDash m_dash = null;
         ff.AriesBeHit m_beHit = null;
         ff.AriesBeBounceAway m_bounceAway = null;
+        ff.AriesStateAgent  m_stateAgent = null;
         
         
         public ff.InputAxe m_horizontalAxe = null;
@@ -44,10 +45,6 @@ namespace ff
         // avoid new Vector3 each frame,declare one for re-use in each frame
         private Vector3 m_front;
 
-
-        // State Agent
-        private AriesStateAgent m_stateAgent = null;
-
         private void Awake()
         {
             m_animator = GetComponent<Animator>();
@@ -59,8 +56,6 @@ namespace ff
             m_dash = gameObject.AddComponent<ff.AriesDash>();
             m_beHit = gameObject.AddComponent<ff.AriesBeHit>();
             m_bounceAway = gameObject.AddComponent<ff.AriesBeBounceAway>();
-
-
             m_stateAgent = GetComponent<AriesStateAgent>();
 
             string ctrlSourcePrefix = "1";
@@ -97,9 +92,6 @@ namespace ff
             
             ApplyVerticalInput();
 
-            // @miao @todo
-
-
             // attack
             m_attackButton.Update(dt);
             if (m_attackButton.IsPress())
@@ -110,7 +102,7 @@ namespace ff
             // dash
             if (m_dashButton.IsPress())
             {
-                m_dash.StartDash();
+                MessageDispatcher.Instance().Dispatch(m_stateAgent.GetEntityID(),m_stateAgent.GetEntityID(),MessageType.MT_TryDash,null);
             }
         }
 
@@ -154,10 +146,6 @@ namespace ff
             m_animator.SetBool(m_animBridge.isUpArrowHold,bUpHolding);
             m_animator.SetBool(m_animBridge.isDownArrowHold,bDownHolding);
         }
-
-
-        
-
 
         private void UpdateStateFlag()
         {

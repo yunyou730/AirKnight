@@ -71,6 +71,21 @@ namespace ff
                 entity.ChangeState(AriesState.Fall);
             }
         }
+
+        public override bool HandleMessage(AriesEntity entity,Telegram msg)
+        {
+            bool bHandled = true;
+            switch(msg.m_msgType)
+            {
+                case MessageType.MT_TryDash:
+                    entity.ChangeState(AriesState.Dash);
+                    break;
+                default:
+                    bHandled = false;
+                    break;
+            }
+            return bHandled;
+        }               
     }
 
 }
