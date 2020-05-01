@@ -6,6 +6,7 @@ namespace ff
 {
     public class AriesStateJump1 : BaseState<AriesEntity>
     {
+        bool m_bHasHandleEnterFrame = false;
 
         public override void OnEnter(AriesEntity entity)
         {
@@ -19,6 +20,8 @@ namespace ff
             rigid.velocity = new Vector2(rigid.velocity.x,0);// give a min velocity of y
 
             jumpComp.jumpPhase = AriesJump.Phase.Jump1;
+
+            m_bHasHandleEnterFrame = false;
         }
 
         public override void OnExit(AriesEntity entity)
@@ -28,6 +31,8 @@ namespace ff
 
         public override void Update(AriesEntity entity,float dt)
         {
+
+
             AriesController ctrl = entity.GetAgent().GetComponent<AriesController>();
             AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
             Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
@@ -36,10 +41,15 @@ namespace ff
             ctrl.UpdateHorizontalMove();
 
             Vector2 curVelocity = rigid.velocity;
-            if(ctrl.m_jumpButton.IsPress())
+            if(m_bHasHandleEnterFrame && ctrl.m_jumpButton.IsPress())
             {
                 entity.ChangeState(AriesState.Jump2);
             }
+
+            if(!m_bHasHandleEnterFrame)
+            {
+                m_bHasHandleEnterFrame = true;
+            }            
         }
 
         public override void FixedUpdate(AriesEntity entity, float dt)
