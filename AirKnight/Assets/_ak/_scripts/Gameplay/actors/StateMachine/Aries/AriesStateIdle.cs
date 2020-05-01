@@ -47,8 +47,10 @@ namespace ff
             switch(msg.m_msgType)
             {
                 case MessageType.MT_TryDash:
+                {
                     entity.ChangeState(AriesState.Dash);
                     break;
+                }
                 default:
                     bHandled = false;
                     break;

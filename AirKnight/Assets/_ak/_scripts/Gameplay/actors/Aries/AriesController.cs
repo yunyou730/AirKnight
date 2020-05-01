@@ -70,12 +70,7 @@ namespace ff
             m_dashButton = new ff.InputButton(ctrlSourcePrefix + DASH_KEY);
 
         }
-
-        void Start()
-        {
-            
-        }
-
+        
         void Update()
         {
             float dt = Time.deltaTime;

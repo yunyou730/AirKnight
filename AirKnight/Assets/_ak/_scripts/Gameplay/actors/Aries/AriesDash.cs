@@ -6,31 +6,18 @@ namespace ff
 {
     public class AriesDash : MonoBehaviour
     {
-        Rigidbody2D m_rigid = null;
-        Animator m_animator = null;
-        ff.AriesAnimBridge m_animBridge = null;
-        ff.AriesController m_ctrl = null;
-        ff.EnvironmentDetector m_envDetector = null;
+        // Rigidbody2D m_rigid = null;
+        // Animator m_animator = null;
+        // ff.AriesAnimBridge m_animBridge = null;
+        // ff.AriesController m_ctrl = null;
+        // ff.EnvironmentDetector m_envDetector = null;
 
         [SerializeField]
         public float m_dashKeepTime = 0.3f;
         [SerializeField]
         public float m_dashSpeed = 20.0f;
 
-        // float m_startGravityScale = 0.0f;
-        // bool m_bDashing = false;
-
-        // private int m_dashCounter = 0;
-
-        private void Awake()
-        {
-            // m_rigid = GetComponent<Rigidbody2D>();
-            // m_animator = GetComponent<Animator>();
-            // m_animBridge = GetComponent<ff.AriesAnimBridge>();
-            // m_ctrl = GetComponent<ff.AriesController>();
-            // m_envDetector = GetComponent<ff.EnvironmentDetector>();
-        }
-
+     
         // public void StartDash()
         // {
         //     m_startGravityScale = m_rigid.gravityScale;

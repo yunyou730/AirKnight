@@ -36,6 +36,9 @@ namespace ff
 
         bool m_bHasReleaseJumpBtn = false;
 
+
+        int m_hasDashCount = 0;
+
         private void Awake()
         {
             m_ctrl = GetComponent<ff.AriesController>();
@@ -48,6 +51,7 @@ namespace ff
         {
             m_jumpElapsedPeriod = 0;
             m_bHasReleaseJumpBtn = false;
+            m_hasDashCount = 0;
         }
 
         public void JumpBtnReleased()
@@ -109,6 +113,17 @@ namespace ff
         public bool HasJumpBtnReleased()
         {
             return m_bHasReleaseJumpBtn;
+        }
+
+
+        public void AddDashCount()
+        {
+            m_hasDashCount++;
+        }
+
+        public int GetDashCount()
+        {
+            return m_hasDashCount;
         }
     }
 

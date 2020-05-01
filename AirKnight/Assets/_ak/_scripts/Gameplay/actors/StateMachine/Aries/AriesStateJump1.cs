@@ -88,8 +88,15 @@ namespace ff
             switch(msg.m_msgType)
             {
                 case MessageType.MT_TryDash:
-                    entity.ChangeState(AriesState.Dash);
+                {
+                    AriesJump ariesJumpComp = entity.GetAgent().GetComponent<AriesJump>();
+                    if(ariesJumpComp.GetDashCount() == 0)
+                    {
+                        ariesJumpComp.AddDashCount();
+                        entity.ChangeState(AriesState.Dash);
+                    }
                     break;
+                }
                 default:
                     bHandled = false;
                     break;
