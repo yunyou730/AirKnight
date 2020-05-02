@@ -6,6 +6,11 @@ namespace ff
 {
     public class AriesStateJump2 : BaseState<AriesEntity>
     {
+        public AriesStateJump2(AriesEntity entity):base(entity)
+        {
+            
+        }        
+
         public override void OnEnter(AriesEntity entity)
         {
             base.OnEnter(entity);
@@ -16,7 +21,6 @@ namespace ff
             {
                 rigid.velocity = new Vector2(rigid.velocity.x,0);// give a min velocity of y
             }
-            jumpComp.jumpPhase = AriesJump.Phase.Jump2;
         }
 
         public override void Update(AriesEntity entity,float dt)

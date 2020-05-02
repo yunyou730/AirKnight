@@ -6,14 +6,15 @@ namespace ff
 {
     public class AriesJump : MonoBehaviour
     {
-        public enum Phase
-        {
-            None,
-            Jump1,
-            Jump2,
-        }
+        // public enum Phase
+        // {
+        //     None,
+        //     Fall,
+        //     Jump1,
+        //     Jump2,
+        // }
 
-        public Phase jumpPhase = Phase.None;
+        // public Phase jumpPhase = Phase.None;
 
         private ff.AriesController m_ctrl = null;
         private ff.PhysicBridge m_phyBridge = null;
@@ -39,6 +40,9 @@ namespace ff
 
         int m_hasDashCount = 0;
 
+        [SerializeField]
+        int m_jumpChance = 2;
+
         private void Awake()
         {
             m_ctrl = GetComponent<ff.AriesController>();
@@ -47,11 +51,27 @@ namespace ff
             m_rigidBody = GetComponent<Rigidbody2D>();
         }        
 
+        public void ResetJumpChance()
+        {
+            m_jumpChance = 2;
+        }
+
+        public void ReduceJumpChance()
+        {
+            m_jumpChance--;
+        }
+
+        public bool CheckJumpChance()
+        {
+            return m_jumpChance > 0;
+        }
+
         public void ResetForJump1()
         {
             m_jumpElapsedPeriod = 0;
             m_bHasReleaseJumpBtn = false;
             m_hasDashCount = 0;
+            ReduceJumpChance();
         }
 
         public void JumpBtnReleased()
@@ -73,6 +93,7 @@ namespace ff
         {
             m_jump2ElapsedPeriod = 0;
             m_bHasReleaseJumpBtn = false;
+            ReduceJumpChance();
         }
 
         public float GetLeftAvailableHoldDurationForJump2()

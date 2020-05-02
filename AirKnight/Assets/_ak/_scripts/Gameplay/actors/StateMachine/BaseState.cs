@@ -7,6 +7,13 @@ namespace ff
 {
     public class BaseState<T> where T : BaseEntity
     {
+        protected T   m_owner = null;
+        
+        public BaseState(T entity)
+        {
+            m_owner = entity;
+        }
+
         public virtual void OnEnter(T entity)
         {
             Debug.Log("[BaseState:OnEnter]" + GetType().Name);

@@ -8,6 +8,11 @@ namespace ff
     {
         bool m_bHasHandleEnterFrame = false;
 
+        public AriesStateJump1(AriesEntity entity):base(entity)
+        {
+            
+        }        
+
         public override void OnEnter(AriesEntity entity)
         {
             base.OnEnter(entity);
@@ -19,7 +24,7 @@ namespace ff
             jumpComp.ResetForJump1();
             rigid.velocity = new Vector2(rigid.velocity.x,0);// give a min velocity of y
 
-            jumpComp.jumpPhase = AriesJump.Phase.Jump1;
+            // jumpComp.jumpPhase = AriesJump.Phase.Jump1;
 
             m_bHasHandleEnterFrame = false;
         }
@@ -41,7 +46,7 @@ namespace ff
             ctrl.UpdateHorizontalMove();
 
             Vector2 curVelocity = rigid.velocity;
-            if(m_bHasHandleEnterFrame && ctrl.m_jumpButton.IsPress())
+            if(m_bHasHandleEnterFrame && ctrl.m_jumpButton.IsPress() && jumpComp.CheckJumpChance())
             {
                 entity.ChangeState(AriesState.Jump2);
             }

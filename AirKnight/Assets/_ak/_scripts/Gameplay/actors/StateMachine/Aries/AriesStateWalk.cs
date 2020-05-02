@@ -6,6 +6,12 @@ namespace ff
 {
     public class AriesStateWalk : BaseState<AriesEntity>
     {
+        AriesJump   m_jump = null;
+        public AriesStateWalk(AriesEntity entity):base(entity)
+        {
+            m_jump = entity.GetAgent().GetComponent<AriesJump>();
+        }
+
         public override void Update(AriesEntity entity, float dt)
         {
             AriesController ctrl = entity.GetAgent().GetComponent<AriesController>();
@@ -27,7 +33,8 @@ namespace ff
             EnvironmentDetector envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
             if (!envDetector.isOnGround)
             {
-                entity.ChangeState(AriesState.Jump1);
+                m_jump.ReduceJumpChance();
+                entity.ChangeState(AriesState.Fall);
             }
         }
 

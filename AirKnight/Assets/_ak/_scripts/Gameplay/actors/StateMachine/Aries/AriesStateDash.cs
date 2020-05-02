@@ -10,6 +10,11 @@ namespace ff
 
         private float m_leftTime = 0;
 
+        public AriesStateDash(AriesEntity entity):base(entity)
+        {
+            
+        }
+
         public override void OnEnter(AriesEntity entity)
         {
             Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();

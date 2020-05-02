@@ -26,21 +26,23 @@ namespace ff
 
         public AriesEntity()
         {
-            m_stateMap.Add(AriesState.Idle,new AriesStateIdle());
-            m_stateMap.Add(AriesState.Walk, new AriesStateWalk());
-            m_stateMap.Add(AriesState.Jump1, new AriesStateJump1());
-            m_stateMap.Add(AriesState.Jump2, new AriesStateJump2());
-            m_stateMap.Add(AriesState.Fall, new AriesStateFall());
-            m_stateMap.Add(AriesState.Dash, new AriesStateDash());
+            
+        }
+
+        public void InitAgent(AriesStateAgent agent)
+        {
+            m_agent = agent;
+
+            m_stateMap.Add(AriesState.Idle,new AriesStateIdle(this));
+            m_stateMap.Add(AriesState.Walk, new AriesStateWalk(this));
+            m_stateMap.Add(AriesState.Jump1, new AriesStateJump1(this));
+            m_stateMap.Add(AriesState.Jump2, new AriesStateJump2(this));
+            m_stateMap.Add(AriesState.Fall, new AriesStateFall(this));
+            m_stateMap.Add(AriesState.Dash, new AriesStateDash(this));
 
             m_fsm = new StateMachine<AriesEntity>();
             m_fsm.SetOwner(this);
-            m_fsm.SetCurrenState(GetState(AriesState.Idle));
-        }
-
-        public void SetAgent(AriesStateAgent agent)
-        {
-            m_agent = agent;
+            m_fsm.SetCurrenState(GetState(AriesState.Idle));            
         }
 
         public AriesStateAgent GetAgent()

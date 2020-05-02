@@ -6,9 +6,17 @@ namespace ff
 {
     public class AriesStateIdle : BaseState<AriesEntity>
     {
+        AriesJump   m_jump = null;
+
+        public AriesStateIdle(AriesEntity entity):base(entity)
+        {
+            m_jump = entity.GetAgent().GetComponent<AriesJump>();
+        }
+
         public override void OnEnter(AriesEntity entity)
         {
             base.OnEnter(entity);
+            m_jump.ResetJumpChance();
         }
 
         public override void OnExit(AriesEntity entity)
@@ -35,9 +43,11 @@ namespace ff
         public override void FixedUpdate(AriesEntity entity, float dt)
         {
             EnvironmentDetector envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
+            Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
             if(!envDetector.isOnGround)
             {   
-                entity.ChangeState(AriesState.Jump1);
+                m_jump.ReduceJumpChance();
+                entity.ChangeState(AriesState.Fall);
             }
         }
 

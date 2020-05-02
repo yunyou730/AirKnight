@@ -7,30 +7,37 @@ namespace ff
 
     public class AriesStateFall : BaseState<AriesEntity>
     {
+        EnvironmentDetector m_envDetector = null;
+        AriesJump m_jumpComp = null;
+
+        public AriesStateFall(AriesEntity entity):base(entity)
+        {
+            m_envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
+            m_jumpComp = entity.GetAgent().GetComponent<AriesJump>();            
+        }
+
         public override void OnEnter(AriesEntity entity)
         {
             base.OnEnter(entity);
-            EnvironmentDetector envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
+            
         }
 
         public override void OnExit(AriesEntity entity)
         {
-            AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
-            jumpComp.jumpPhase = AriesJump.Phase.None;
+            // m_jumpComp.jumpPhase = AriesJump.Phase.None;
         }
 
         public override void Update(AriesEntity entity,float dt)
         {
             AriesController ctrl = entity.GetAgent().GetComponent<AriesController>();
             AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
-
             ctrl.UpdateHorizontalMove();
-            if(jumpComp.jumpPhase == AriesJump.Phase.Jump1 && ctrl.m_jumpButton.IsPress())
+            if(ctrl.m_jumpButton.IsPress() && jumpComp.CheckJumpChance())
             {
+                m_jumpComp.UpdateJump2(dt);
                 entity.ChangeState(AriesState.Jump2);
             }
         }
-
 
         public override bool HandleMessage(AriesEntity entity,Telegram msg)
         {
@@ -39,10 +46,10 @@ namespace ff
             {
                 case MessageType.MT_TryDash:
                 {
-                    AriesJump ariesJumpComp = entity.GetAgent().GetComponent<AriesJump>();
-                    if(ariesJumpComp.GetDashCount() == 0)
+                    m_jumpComp = entity.GetAgent().GetComponent<AriesJump>();
+                    if(m_jumpComp.GetDashCount() == 0)
                     {
-                        ariesJumpComp.AddDashCount();
+                        m_jumpComp.AddDashCount();
                         entity.ChangeState(AriesState.Dash);
                     }
                     break;
