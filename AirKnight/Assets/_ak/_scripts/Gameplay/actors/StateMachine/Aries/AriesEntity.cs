@@ -7,12 +7,14 @@ namespace ff
 
     public enum AriesState
     { 
+        Global,
         Idle,
         Walk,
         Jump1,
         Jump2,
         Fall,
         Dash,
+        Hurt,
 
         None,
     }
@@ -33,16 +35,19 @@ namespace ff
         {
             m_agent = agent;
 
+            m_stateMap.Add(AriesState.Global,new AriesStateGlobal(this));
             m_stateMap.Add(AriesState.Idle,new AriesStateIdle(this));
             m_stateMap.Add(AriesState.Walk, new AriesStateWalk(this));
             m_stateMap.Add(AriesState.Jump1, new AriesStateJump1(this));
             m_stateMap.Add(AriesState.Jump2, new AriesStateJump2(this));
             m_stateMap.Add(AriesState.Fall, new AriesStateFall(this));
             m_stateMap.Add(AriesState.Dash, new AriesStateDash(this));
+            m_stateMap.Add(AriesState.Hurt, new AriesStateHurt(this));
 
             m_fsm = new StateMachine<AriesEntity>();
             m_fsm.SetOwner(this);
             m_fsm.SetCurrenState(GetState(AriesState.Idle));            
+            m_fsm.SetGlobalState(GetState(AriesState.Global));
         }
 
         public AriesStateAgent GetAgent()
@@ -81,10 +86,10 @@ namespace ff
             return null;
         }
 
-        public void ChangeState(AriesState state)
+        public void ChangeState(AriesState state,Telegram msg = null)
         {
             BaseState<AriesEntity> nextState = GetState(state);
-            GetFSM().ChangeState(nextState);
+            GetFSM().ChangeState(nextState,msg);
         }
     }
 

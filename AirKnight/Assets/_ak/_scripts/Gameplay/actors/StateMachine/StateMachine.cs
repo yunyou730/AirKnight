@@ -45,7 +45,7 @@ namespace ff
         {
             if (m_prevState != null)
             {
-                ChangeState(m_prevState);
+                ChangeState(m_prevState,null);
             }
         }
 
@@ -59,7 +59,7 @@ namespace ff
             m_globalState = state;
         }
 
-        public void ChangeState(BaseState<T> nextState)
+        public void ChangeState(BaseState<T> nextState,Telegram msg)
         {
             if (m_currentState != null)
             {
@@ -67,7 +67,7 @@ namespace ff
                 m_prevState = m_currentState;
             }
             m_currentState = nextState;
-            m_currentState.OnEnter(m_owner);
+            m_currentState.OnEnter(m_owner,msg);
         }
 
         public bool HandleMessage(Telegram msg)

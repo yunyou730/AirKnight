@@ -20,8 +20,5 @@ namespace ff
                 canBeHit.OnBeHit(gameObject);
             }
         }
-
     }
-
-
 }

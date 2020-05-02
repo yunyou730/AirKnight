@@ -15,8 +15,10 @@ namespace ff
             
         }
 
-        public override void OnEnter(AriesEntity entity)
+        public override void OnEnter(AriesEntity entity,Telegram msg)
         {
+            base.OnEnter(entity,msg);
+            
             Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
             AriesDash dash = entity.GetAgent().GetComponent<AriesDash>();
             Animator animator = entity.GetAgent().GetComponent<Animator>();
@@ -58,6 +60,14 @@ namespace ff
 
         public override bool HandleMessage(AriesEntity entity,Telegram msg)
         {
+            switch(msg.m_msgType)
+            {
+                case MessageType.MT_TakeDamage:
+                {
+                    // mark as handled , overlap global state
+                    return true;
+                }
+            }            
             return false;
         }        
     }

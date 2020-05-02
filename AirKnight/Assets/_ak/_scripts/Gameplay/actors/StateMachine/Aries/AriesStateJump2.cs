@@ -11,9 +11,10 @@ namespace ff
             
         }        
 
-        public override void OnEnter(AriesEntity entity)
+        public override void OnEnter(AriesEntity entity,Telegram msg)
         {
-            base.OnEnter(entity);
+            base.OnEnter(entity,msg);
+            
             AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
             Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
             jumpComp.ResetForJump2();

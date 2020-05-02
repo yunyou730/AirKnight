@@ -17,11 +17,9 @@ namespace ff
             m_envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
         }        
 
-        public override void OnEnter(AriesEntity entity)
+        public override void OnEnter(AriesEntity entity,Telegram msg)
         {
-            base.OnEnter(entity);
-
-
+            base.OnEnter(entity,msg);
             m_jumpComp.ResetForJump1();
             m_rigid.velocity = new Vector2(m_rigid.velocity.x,0);// give a min velocity of y
         }

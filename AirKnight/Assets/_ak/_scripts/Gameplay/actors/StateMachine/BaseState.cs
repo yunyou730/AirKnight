@@ -14,7 +14,7 @@ namespace ff
             m_owner = entity;
         }
 
-        public virtual void OnEnter(T entity)
+        public virtual void OnEnter(T entity,Telegram msg)
         {
             Debug.Log("[BaseState:OnEnter]" + GetType().Name);
         }

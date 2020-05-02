@@ -13,9 +13,9 @@ namespace ff
             m_jump = entity.GetAgent().GetComponent<AriesJump>();
         }
 
-        public override void OnEnter(AriesEntity entity)
+        public override void OnEnter(AriesEntity entity,Telegram msg)
         {
-            base.OnEnter(entity);
+            base.OnEnter(entity,msg);
             m_jump.ResetJumpChance();
         }
 
