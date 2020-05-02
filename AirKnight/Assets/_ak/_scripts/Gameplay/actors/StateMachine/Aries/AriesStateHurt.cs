@@ -70,9 +70,7 @@ namespace ff
             else if(m_envDetector.isOnGround)
             {
                 MessageDispatcher.Instance().Dispatch(entity.GetID(),entity.GetID(),MessageType.MT_BreakHurt,null);
-            }
-
-            
+            }   
         }
 
         public override bool HandleMessage(AriesEntity entity, Telegram msg)
@@ -84,6 +82,11 @@ namespace ff
                     entity.GetFSM().FlipState();
                     return true;
                 }
+                case MessageType.MT_TryAttack:
+                {
+                    // mark as handled , overlap global state
+                    return true;
+                }                
             }
             return base.HandleMessage(entity, msg);
         }

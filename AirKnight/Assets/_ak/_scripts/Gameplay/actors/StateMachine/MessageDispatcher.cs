@@ -35,9 +35,8 @@ namespace ff
 
     public enum MessageType
     {
-        // MT_TryAttack,
+        MT_TryAttack,
         // MT_TryJump,
-
         MT_TryDash,
         MT_BreakDash,           // @todo
         MT_TakeDamage,

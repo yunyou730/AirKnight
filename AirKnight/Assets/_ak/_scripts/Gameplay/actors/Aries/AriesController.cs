@@ -91,13 +91,20 @@ namespace ff
             m_attackButton.Update(dt);
             if (m_attackButton.IsPress())
             {
-                m_animator.SetTrigger(m_animBridge.atkTrigger);
+                // m_animator.SetTrigger(m_animBridge.atkTrigger);
+                MessageDispatcher.Instance().Dispatch(
+                    m_stateAgent.GetEntityID(),
+                    m_stateAgent.GetEntityID(),
+                    MessageType.MT_TryAttack,null);
             }
 
             // dash
             if (m_dashButton.IsPress())
             {
-                MessageDispatcher.Instance().Dispatch(m_stateAgent.GetEntityID(),m_stateAgent.GetEntityID(),MessageType.MT_TryDash,null);
+                MessageDispatcher.Instance().Dispatch(
+                    m_stateAgent.GetEntityID(),
+                    m_stateAgent.GetEntityID(),
+                    MessageType.MT_TryDash,null);
             }
         }
 

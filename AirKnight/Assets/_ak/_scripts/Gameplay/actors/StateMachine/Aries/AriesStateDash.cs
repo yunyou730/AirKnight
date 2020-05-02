@@ -67,6 +67,11 @@ namespace ff
                     // mark as handled , overlap global state
                     return true;
                 }
+                case MessageType.MT_TryAttack:
+                {
+                    // mark as handled , overlap global state
+                    return true;
+                }
             }            
             return false;
         }        

@@ -61,6 +61,10 @@ namespace ff
 
         public void ChangeState(BaseState<T> nextState,Telegram msg)
         {
+            if(m_currentState != null && nextState == m_currentState)
+            {
+                return;
+            }
             if (m_currentState != null)
             {
                 m_currentState.OnExit(m_owner);
