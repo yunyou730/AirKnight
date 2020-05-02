@@ -20,5 +20,14 @@ namespace ff
                 canBeHit.OnBeHit(gameObject);
             }
         }
+
+        public void OnTriggerStay2D(Collider2D collision)
+        {
+            CanBeHit canBeHit = collision.GetComponent<CanBeHit>();
+            if(canBeHit != null)
+            {   
+                canBeHit.OnBeHit(gameObject);
+            }
+        }
     }
 }
