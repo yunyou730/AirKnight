@@ -10,6 +10,8 @@ namespace ff
         EnvironmentDetector m_envDetector = null;
         AriesJump m_jumpComp = null;
 
+        bool m_bShallChangeToIdle = false;
+
         public AriesStateFall(AriesEntity entity):base(entity)
         {
             m_envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
@@ -19,20 +21,29 @@ namespace ff
         public override void OnEnter(AriesEntity entity)
         {
             base.OnEnter(entity);
-            
+            m_bShallChangeToIdle = false;
         }
 
         public override void OnExit(AriesEntity entity)
         {
-            // m_jumpComp.jumpPhase = AriesJump.Phase.None;
+            
         }
 
         public override void Update(AriesEntity entity,float dt)
         {
+            if(m_bShallChangeToIdle)
+            {
+                entity.ChangeState(AriesState.Idle);
+                return;
+            }
+
             AriesController ctrl = entity.GetAgent().GetComponent<AriesController>();
             AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
             ctrl.UpdateHorizontalMove();
-            if(ctrl.m_jumpButton.IsPress() && jumpComp.CheckJumpChance())
+
+            //bool bCtrlJump = ctrl.m_jumpButton.IsPress() || ctrl.m_jumpButton.IsHold();
+            bool bCtrlJump = ctrl.m_jumpButton.IsPress();
+            if(bCtrlJump && jumpComp.CheckJumpChance())
             {
                 m_jumpComp.UpdateJump2(dt);
                 entity.ChangeState(AriesState.Jump2);
@@ -67,7 +78,7 @@ namespace ff
             EnvironmentDetector envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
             if(envDetector.isOnGround)
             {
-                entity.ChangeState(AriesState.Idle);
+                m_bShallChangeToIdle = true;
             }
         }
     }

@@ -52,7 +52,7 @@ namespace ff
             m_leftTime -= dt;
             if(m_leftTime <= 0)
             {
-                entity.ChangeState(AriesState.Idle);
+                entity.ChangeState(AriesState.Fall);
             }
         } 
 

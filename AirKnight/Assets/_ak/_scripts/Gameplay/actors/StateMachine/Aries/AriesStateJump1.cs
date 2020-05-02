@@ -6,27 +6,24 @@ namespace ff
 {
     public class AriesStateJump1 : BaseState<AriesEntity>
     {
-        bool m_bHasHandleEnterFrame = false;
+        AriesJump m_jumpComp = null;
+        Rigidbody2D m_rigid = null;
+        EnvironmentDetector m_envDetector = null;
 
         public AriesStateJump1(AriesEntity entity):base(entity)
         {
-            
+            m_jumpComp = entity.GetAgent().GetComponent<AriesJump>();
+            m_rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
+            m_envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
         }        
 
         public override void OnEnter(AriesEntity entity)
         {
             base.OnEnter(entity);
 
-            AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
-            Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
-            EnvironmentDetector envDetector = entity.GetAgent().GetComponent<EnvironmentDetector>();
 
-            jumpComp.ResetForJump1();
-            rigid.velocity = new Vector2(rigid.velocity.x,0);// give a min velocity of y
-
-            // jumpComp.jumpPhase = AriesJump.Phase.Jump1;
-
-            m_bHasHandleEnterFrame = false;
+            m_jumpComp.ResetForJump1();
+            m_rigid.velocity = new Vector2(m_rigid.velocity.x,0);// give a min velocity of y
         }
 
         public override void OnExit(AriesEntity entity)
@@ -36,31 +33,23 @@ namespace ff
 
         public override void Update(AriesEntity entity,float dt)
         {
-
-
             AriesController ctrl = entity.GetAgent().GetComponent<AriesController>();
-            AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
             Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
             EnvironmentDetector envDector = entity.GetAgent().GetComponent<EnvironmentDetector>();
 
             ctrl.UpdateHorizontalMove();
 
             Vector2 curVelocity = rigid.velocity;
-            if(m_bHasHandleEnterFrame && ctrl.m_jumpButton.IsPress() && jumpComp.CheckJumpChance())
+
+            if(ctrl.m_jumpButton.IsPress() && m_jumpComp.CheckJumpChance())
             {
                 entity.ChangeState(AriesState.Jump2);
             }
-
-            if(!m_bHasHandleEnterFrame)
-            {
-                m_bHasHandleEnterFrame = true;
-            }            
         }
 
         public override void FixedUpdate(AriesEntity entity, float dt)
         {
             AriesController ctrl = entity.GetAgent().GetComponent<AriesController>();
-            AriesJump jumpComp = entity.GetAgent().GetComponent<AriesJump>();
             Rigidbody2D rigid = entity.GetAgent().GetComponent<Rigidbody2D>();
             EnvironmentDetector envDector = entity.GetAgent().GetComponent<EnvironmentDetector>();
 
@@ -68,16 +57,16 @@ namespace ff
 
             if (ctrl.m_jumpButton.IsRelease())
             {
-                jumpComp.JumpBtnReleased();
+                m_jumpComp.JumpBtnReleased();
             }
             else
             {
                 if(
                     (ctrl.m_jumpButton.IsPress() || ctrl.m_jumpButton.IsHold())
-                    && jumpComp.GetLeftAvailableHoldDurationForJump1() > 0
+                    && m_jumpComp.GetLeftAvailableHoldDurationForJump1() > 0
                 )
                 {
-                    jumpComp.UpdateJump(dt);
+                    m_jumpComp.UpdateJump(dt);
                 }
             }
 
