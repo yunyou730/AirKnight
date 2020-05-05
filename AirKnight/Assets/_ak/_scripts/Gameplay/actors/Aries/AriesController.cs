@@ -26,6 +26,7 @@ namespace ff
         public ff.InputButton m_jumpButton = null;
         public ff.InputButton m_attackButton = null;
         public ff.InputButton m_dashButton = null;
+        public ff.InputButton m_interactButton = null;
 
         private ff.EnvironmentDetector m_envDetector = null;
         private ff.PhysicBridge m_phyBridge = null;
@@ -39,6 +40,7 @@ namespace ff
         private string JUMP_KEY = "p_jump";
         private string ATK_KEY = "p_atk_1";
         private string DASH_KEY = "p_dash";
+        private string INTERACT_KEY = "p_interact";
         [SerializeField]
         PlayerCtrlSource m_ctrlSource = PlayerCtrlSource.PCS_1P;
 
@@ -68,7 +70,7 @@ namespace ff
             m_jumpButton = new ff.InputButton(ctrlSourcePrefix + JUMP_KEY);
             m_attackButton = new ff.InputButton(ctrlSourcePrefix + ATK_KEY);
             m_dashButton = new ff.InputButton(ctrlSourcePrefix + DASH_KEY);
-
+            m_interactButton = new ff.InputButton(ctrlSourcePrefix + INTERACT_KEY);
         }
         
         void Update()
@@ -84,6 +86,7 @@ namespace ff
             m_verticalAxe.Update(dt);
             m_jumpButton.Update(dt);
             m_dashButton.Update(dt);
+            m_interactButton.Update(dt);
             
             ApplyVerticalInput();
 
