@@ -44,3 +44,6 @@ TagManager:
   - name: ff_slash
     uniqueID: 3274319937
     locked: 0
+  - name: ff_interactive_gui
+    uniqueID: 811229335
+    locked: 0

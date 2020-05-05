@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 685253348}
   - component: {fileID: 1308603142}
   - component: {fileID: 8564917520608284808}
+  - component: {fileID: 214152834}
   m_Layer: 9
   m_Name: Aries
   m_TagString: Untagged
@@ -419,3 +420,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.21618557, y: 0.041814804}
   m_EdgeRadius: 0
+--- !u!114 &214152834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4892753318002672693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e73141692fc461a84606804e235810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
